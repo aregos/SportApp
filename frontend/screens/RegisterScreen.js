@@ -18,7 +18,7 @@ export class RegisterScreen extends React.Component<{}> {
     register = () => {
         const {email, login, password} = this.state;
         if (email && login && password) {
-            this.props.register(this.state.email, this.state.login, this.state.password);
+            this.props.register(email, login, password);
         }
         else {
             this.setState({error: 'У вас не заполнено поле'});

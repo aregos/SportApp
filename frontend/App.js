@@ -11,8 +11,6 @@ global.FormData = global.originalFormData
     ? global.originalFormData
     : global.FormData
 
-fetch // Ensure to get the lazy property
-
 if (window.__FETCH_SUPPORT__) {
     // it's RNDebugger only to have
     window.__FETCH_SUPPORT__.blob = false

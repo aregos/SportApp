@@ -11,12 +11,12 @@ module.exports = {
             return res.json({status: 'error', message: 'there is user with this name', data: {name: req.body.name}})
         }
         else
-        userModel.create({ name : req.body.name, email : req.body.email, password : req.body.password},
+        userModel.create({name : req.body.name, email : req.body.email, password : req.body.password},
             function(err, result) {
             if (err) {
                 next(err);
             }
-            else 
+            else
             res.json({status: 'success', message: 'User added successfully!', data: result})
         });
     },

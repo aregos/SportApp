@@ -6,7 +6,7 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAILURE
 } from './consts.js';
-import {registerApi} from '../api.js';
+import {registerApi, loginApi} from '../api.js';
 
 export const registerAction = (email, login, password) => {
     return async (dispatch) => {
@@ -14,7 +14,7 @@ export const registerAction = (email, login, password) => {
         await registerApi(email, login, password)
             .then(res => {
                 if (res) {
-                    dispatch({type: REGISTER_SUCCESS, payload: Object.assign({}, res, email, login, password)})
+                    dispatch({type: REGISTER_SUCCESS, payload: Object.assign({}, email, login, password)})
                 }
                 else {
                     dispatch({type: REGISTER_FAILURE, payload: res})
