@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TextInput, Button, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import {registerAction} from '../modules/auth/actions/action.js';
+import validator from '../modules/auth/helpers/validator';
 
 export class RegisterScreen extends React.Component<{}> {
 
@@ -18,12 +19,15 @@ export class RegisterScreen extends React.Component<{}> {
     register = () => {
         const {email, login, password} = this.state;
         if (email && login && password) {
-            this.props.register(email, login, password);
+            if (validator.emailValidator(email) && validator.nameValidator(login) && validator.passwordValidator(password)) {
+                this.props.register(email, login, password);
+            }
+            else this.setState({error: 'Введенные данные не соответствуют правилам'});
         }
         else {
             this.setState({error: 'У вас не заполнено поле'});
         }
-    }
+    };
 
     render() {
         return (
@@ -32,18 +36,21 @@ export class RegisterScreen extends React.Component<{}> {
                 <TextInput
                     style={{ borderWidth : 4 }}
                     value={this.state.email}
+                    maxLength={40}
                     onChangeText={ (text) => this.setState({email: text})}
                 />
                 <Text>Логин</Text>
                 <TextInput
                     style={{ borderWidth : 4 }}
                     value={this.state.login}
+                    maxLength={14}
                     onChangeText={ (text) => this.setState({login: text})}
                 />
                 <Text>Пароль</Text>
                 <TextInput
                     style={{ borderWidth : 4}}
                     value={this.state.password}
+                    maxLength={14}
                     onChangeText={ (text) => this.setState({password: text}) }
                 />
                 <Button
@@ -61,7 +68,7 @@ let mapStateToProps = state => ({
 })
 
 let mapDispatchToProps = dispatch => ({
-    register: () => dispatch(registerAction())
+    register: (email,login,password) => dispatch(registerAction(email,login,password))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterScreen)

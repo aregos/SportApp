@@ -12,13 +12,12 @@ export const registerAction = (email, login, password) => {
     return async (dispatch) => {
             dispatch({type: REGISTER_START});
         await registerApi(email, login, password)
-            .then(res => {
-                if (res) {
-                    dispatch({type: REGISTER_SUCCESS, payload: Object.assign({}, email, login, password)})
-                }
-                else {
-                    dispatch({type: REGISTER_FAILURE, payload: res})
-                }
+            .then(data => {
+                dispatch({type: REGISTER_SUCCESS, payload: Object.assign({}, email, login, password, data)});
+            })
+            .catch(error => {
+                dispatch({type: REGISTER_FAILURE, payload: error})
+
             })
     }
 };

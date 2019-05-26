@@ -1,25 +1,15 @@
-const url = 'http://10.203.65.126:8000/users';
+const url = 'http://192.168.0.10:8000/users';
 
 export const registerApi = async (email, login, password) => {
-    try {
     const query = {
         method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'accept': 'application/json'},
+        headers: {'Content-Type': 'application/json', 'accept': 'application/json'},
         body: JSON.stringify({'email': email, 'name': login, 'password': password}),
+        mode: 'cors'
     };
         await fetch(`${url}/register`, query)
-            .then(response => {
-                if (response.ok) {
-                    return response;
-                }
-            },
-                response => {
-                    return response;
-                });
-    }
-    catch (err) {
-        return Promise.resolve(err);
-    }
+            .then(response => response.json())
+
 };
 
 export const loginApi = async (login, password) => {

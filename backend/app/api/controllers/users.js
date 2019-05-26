@@ -3,15 +3,20 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 module.exports = {
-    create: function(req, res, next) {
-        if (userModel.findOne({email : req.body.email})) {
-            return res.json({status: 'error', message: 'there is user with this email', data: {email: req.body.email}})
+    create: async function(req, res, next) {
+        const {email, login, password} = req.body;
+        if (await userModel.findOne({"email" : req.body.email})) {
+            return res.json({status: 'error', message: 'there is user with this email', data: {email: email}})
         }
-        else if (userModel.findOne({name : req.body.name})) {
-            return res.json({status: 'error', message: 'there is user with this name', data: {name: req.body.name}})
+        else if (await userModel.findOne({"name" : req.body.name})) {
+            return res.json({status: 'error', message: 'there is user with this name', data: {name: login}})
         }
         else
-        userModel.create({name : req.body.name, email : req.body.email, password : req.body.password},
+        userModel.create({
+                name : login,
+                email : email,
+                password : password
+            },
             function(err, result) {
             if (err) {
                 next(err);

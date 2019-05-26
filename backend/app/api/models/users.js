@@ -3,9 +3,9 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 //Define a schema
-const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
+const UserSchema = mongoose.Schema(
+    {
     name: {
         type: String,
         trim: true,
@@ -21,7 +21,8 @@ const UserSchema = new Schema({
         trim: true,
         required: true,
     }
-});
+    },
+);
 
 //hash user password before saving to database
 UserSchema.pre('save', function(next) {
@@ -29,4 +30,4 @@ UserSchema.pre('save', function(next) {
     next();
 });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema,'users');

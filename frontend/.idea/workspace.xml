@@ -2,13 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="49637a5e-2e7d-464c-a59d-710bcab3296b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/auth/helpers/validator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/app/api/config/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app/api/config/db.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/app/api/controllers/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app/api/controllers/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/app/api/models/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app/api/models/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/app/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app/routes/users.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/auth/actions/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/auth/actions/action.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/auth/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/auth/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screens/RegisterScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/RegisterScreen.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -86,7 +88,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="1" weight="0.21917808" />
