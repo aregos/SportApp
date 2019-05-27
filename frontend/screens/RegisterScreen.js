@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {registerAction} from '../modules/auth/actions/action.js';
 import validator from '../modules/auth/helpers/validator';
 
-export class RegisterScreen extends React.Component<{}> {
+export class RegisterScreen extends React.Component {
 
     constructor(props) {
         super(props);
@@ -13,6 +13,17 @@ export class RegisterScreen extends React.Component<{}> {
             login: '',
             password: '',
             error: ''
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.error
+            && ((prevState.login.length > this.state.login.length)
+            || (prevState.password > this.state.password.length)
+            || (prevState.email > this.state.email.length))
+        )
+        {
+            this.setState({error: ''});
         }
     }
 
@@ -65,7 +76,7 @@ export class RegisterScreen extends React.Component<{}> {
 
 let mapStateToProps = state => ({
     reg: state.register
-})
+});
 
 let mapDispatchToProps = dispatch => ({
     register: (email,login,password) => dispatch(registerAction(email,login,password))
