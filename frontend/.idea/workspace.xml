@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="49637a5e-2e7d-464c-a59d-710bcab3296b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/modules/auth/helpers/validator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/app/api/config/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app/api/config/db.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/app/api/controllers/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app/api/controllers/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/app/api/models/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app/api/models/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/app/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app/routes/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/auth/actions/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/auth/actions/action.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/auth/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/auth/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/RegisterScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/RegisterScreen.js" afterDir="false" />
-    </list>
+    <list default="true" id="49637a5e-2e7d-464c-a59d-710bcab3296b" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

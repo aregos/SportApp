@@ -17,12 +17,7 @@ export class RegisterScreen extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.error
-            && ((prevState.login.length > this.state.login.length)
-            || (prevState.password > this.state.password.length)
-            || (prevState.email > this.state.email.length))
-        )
-        {
+        if (prevState.error && ((prevState.login.length > this.state.login.length)||(prevState.password > this.state.password.length)||(prevState.email > this.state.email.length))) {
             this.setState({error: ''});
         }
     }

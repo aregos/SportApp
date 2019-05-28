@@ -4,25 +4,26 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
     create: async function(req, res, next) {
-        const {email, login, password} = req.body;
+        const {email, name, password} = req.body;
         if (await userModel.findOne({"email" : req.body.email})) {
-            return res.json({status: 'error', message: 'there is user with this email', data: {email: email}})
+            res.status(500).json({message: 'email уже занят', data: req.body.email});
         }
         else if (await userModel.findOne({"name" : req.body.name})) {
-            return res.json({status: 'error', message: 'there is user with this name', data: {name: login}})
+            res.status(500).json({message: 'Имя уже занято', data: req.body.name});
         }
         else
         userModel.create({
-                name : login,
+                name : name,
                 email : email,
                 password : password
             },
             function(err, result) {
             if (err) {
+                res.status(500).json({error: err});
                 next(err);
             }
             else
-            res.json({status: 'success', message: 'User added successfully!', data: result})
+            res.status(200).json({message: 'Пользователь зарегистрирован!', data: req.body.name})
         });
     },
 

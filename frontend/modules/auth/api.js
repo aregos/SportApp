@@ -5,12 +5,17 @@ export const registerApi = async (email, login, password) => {
         method: 'POST',
         headers: {'Content-Type': 'application/json', 'accept': 'application/json'},
         body: JSON.stringify({'email': email, 'name': login, 'password': password}),
-        mode: 'cors'
     };
         await fetch(`${url}/register`, query)
             .then(response => response.json())
-
-};
+            .then(response => {
+                if (response.error) {
+                    throw (response.error);
+                }
+                return response;
+            })
+            .catch(error => error);
+    };
 
 export const loginApi = async (login, password) => {
     try {
