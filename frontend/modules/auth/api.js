@@ -7,14 +7,12 @@ export const registerApi = async (email, login, password) => {
         body: JSON.stringify({'email': email, 'name': login, 'password': password}),
     };
         await fetch(`${url}/register`, query)
-            .then(response => response.json())
             .then(response => {
-                if (response.error) {
-                    throw (response.error);
-                }
-                return response;
+                return response.json();
             })
-            .catch(error => error);
+            .catch(error => {
+                return error;
+            });
     };
 
 export const loginApi = async (login, password) => {

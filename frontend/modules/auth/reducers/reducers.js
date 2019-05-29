@@ -3,9 +3,7 @@ import {REGISTER_START, REGISTER_SUCCESS, REGISTER_FAILURE} from '../actions/con
 const initialState = {
     email: '',
     login: '',
-    password: '',
     message: '',
-    status: '',
     isFetching: false
 };
 
@@ -19,8 +17,8 @@ export default (state = initialState, action) => {
         case REGISTER_SUCCESS:
             return {
                 ...state,
-                email: action.payload.email,
-                login: action.payload.login,
+                email: action.payload.data.email,
+                login: action.payload.data.login,
                 message: action.payload.message,
                 isFetching: false
             };

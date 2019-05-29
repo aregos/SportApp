@@ -6,10 +6,16 @@ module.exports = {
     create: async function(req, res, next) {
         const {email, name, password} = req.body;
         if (await userModel.findOne({"email" : req.body.email})) {
-            res.status(500).json({message: 'email уже занят', data: req.body.email});
+            res.status(500).json({
+                message: 'email уже занят',
+                data: req.body.email
+            });
         }
         else if (await userModel.findOne({"name" : req.body.name})) {
-            res.status(500).json({message: 'Имя уже занято', data: req.body.name});
+            res.status(500).json({
+                message: 'Имя уже занято',
+                data: req.body.name
+            });
         }
         else
         userModel.create({
@@ -23,7 +29,10 @@ module.exports = {
                 next(err);
             }
             else
-            res.status(200).json({message: 'Пользователь зарегистрирован!', data: req.body.name})
+            res.status(200).json({
+                message: 'Поздравляем, вы зарегистрированы!',
+                data: {login: req.body.name, email: req.body.email}
+            })
         });
     },
 

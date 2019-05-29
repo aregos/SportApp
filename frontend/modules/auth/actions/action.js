@@ -12,8 +12,8 @@ export const registerAction = (email, login, password) => {
     return async (dispatch) => {
             dispatch({type: REGISTER_START});
         await registerApi(email, login, password)
-            .then(data => {
-                dispatch({type: REGISTER_SUCCESS, payload: data})
+            .then(res => {
+                dispatch({type: REGISTER_SUCCESS, payload: res})
             })
             .catch(error => {
                 dispatch({type: REGISTER_FAILURE, payload: error})
