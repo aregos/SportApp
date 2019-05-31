@@ -4,14 +4,27 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  Text
 } from 'react-native';
+import { connect } from 'react-redux';
 
-export default class HomeScreen extends React.Component {
+class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Home',
   };
 
+  isLoggedScreen = () => {
+    return(
+    <View>
+      <Text>Бла бла бла</Text>
+    </View>
+    )
+  };
+
   render() {
+
+    if (this.props.isLogged) return this.isLoggedScreen();
+    else
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -30,6 +43,12 @@ export default class HomeScreen extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  isLogged: state.register.isLogged
+});
+
+export default connect(mapStateToProps)(HomeScreen);
 
 const styles = StyleSheet.create({
   container: {

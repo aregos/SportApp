@@ -12,13 +12,19 @@ export class RegisterScreen extends React.Component {
             email: '',
             login: '',
             password: '',
-            error: ''
+            error: '',
         }
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.error && ((prevState.login.length > this.state.login.length)||(prevState.password > this.state.password.length)||(prevState.email > this.state.email.length))) {
             this.setState({error: ''});
+        }
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        if (nextProps.isLogged === true) {
+            this.props.navigation.navigate('CongratScreen')
         }
     }
 
@@ -69,11 +75,11 @@ export class RegisterScreen extends React.Component {
     }
 }
 
-let mapStateToProps = state => ({
-    reg: state.register
+const mapStateToProps = state => ({
+    isLogged: state.register.isLogged
 });
 
-let mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = dispatch => ({
     register: (email,login,password) => dispatch(registerAction(email,login,password))
 });
 

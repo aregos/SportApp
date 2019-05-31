@@ -25,7 +25,7 @@ if (window.__FETCH_SUPPORT__) {
         : global.FileReader
 }
 
-    class App extends React.Component<{}> {
+    class App extends React.Component {
         render() {
             return (
                 <Provider store = {store}>

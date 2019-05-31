@@ -4,7 +4,8 @@ const initialState = {
     email: '',
     login: '',
     message: '',
-    isFetching: false
+    isLogged: false,
+    isFetching: false,
 };
 
 export default (state = initialState, action) => {
@@ -20,6 +21,7 @@ export default (state = initialState, action) => {
                 email: action.payload.data.email,
                 login: action.payload.data.login,
                 message: action.payload.message,
+                isLogged: true,
                 isFetching: false
             };
         case REGISTER_FAILURE:

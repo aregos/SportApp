@@ -45,13 +45,19 @@ module.exports = {
 
                     const token = jwt.sign({id: userInfo._id}, req.app.get('secretKey'), {expiresIn: '1h'});
 
-                    res.json({status: 'success', message: 'user found!', data: {user: userInfo, token: token}});
+                    res.status(200).json({
+                        status: 'success',
+                        message: 'user found!',
+                        data: {user: userInfo, token: token}
+                    });
                 }
                 else {
-                    
-                    res.json({status: 'error', message: 'invalid email/password!', data: null});
+                    res.status(500).json({
+                        status: 'error',
+                        message: 'Неправильный логин/пароль!',
+                    });
                 }
             }
         })
     }
-}
+};

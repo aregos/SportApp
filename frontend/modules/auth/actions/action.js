@@ -11,28 +11,27 @@ import {registerApi, loginApi} from '../api.js';
 export const registerAction = (email, login, password) => {
     return async (dispatch) => {
             dispatch({type: REGISTER_START});
-        await registerApi(email, login, password)
-            .then(res => {
-                dispatch({type: REGISTER_SUCCESS, payload: res})
-            })
-            .catch(error => {
-                dispatch({type: REGISTER_FAILURE, payload: error})
-
-            })
+            registerApi(email,login,password)
+                .then(response => {
+                    return response.json();
+                })
+                .then(res => dispatch({type: REGISTER_SUCCESS, payload: res}))
+                .catch(error => {
+                    dispatch({type: REGISTER_FAILURE, payload: error})
+                });
     }
 };
 
 export const loginAction = (login, password) => {
     return async (dispatch) => {
             dispatch({type: LOGIN_START});
-        await loginApi(login, password)
-            .then(res => {
-                if (res) {
-                    return {type: LOGIN_SUCCESS, payload: Object.assign({}, res, login, password)}
-                }
-                else {
-                    return {type : LOGIN_FAILURE, payload: res}
-                }
-            })
+            loginApi(login, password)
+                .then(response => {
+                    return response.json();
+                })
+                .then(res => dispatch({type: LOGIN_SUCCESS, payload: res}))
+                .catch(error => {
+                    dispatch({type : LOGIN_FAILURE, payload: error})
+                })
     }
-}
+};

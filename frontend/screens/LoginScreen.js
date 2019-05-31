@@ -8,11 +8,11 @@ class LoginScreen extends React.Component {
     state = {
         login: '',
         password: ''
-    }
+    };
 
     login = (login, password) => {
         this.props.login(login, password)
-    }
+    };
 
     render() {
         return (
@@ -39,7 +39,7 @@ class LoginScreen extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    login: () => dispatch(loginAction())
-})
+    login: (login, password) => dispatch(loginAction(login, password))
+});
 
 export default connect(null, mapDispatchToProps)(LoginScreen)
