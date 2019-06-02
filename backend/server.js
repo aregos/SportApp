@@ -10,7 +10,6 @@ const cors         = require('cors');
 const jwt          = require('jsonwebtoken');
 const port         = 8000;
 
-
 app.set('secretKey', 'nodeRestApi');
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -20,10 +19,7 @@ app.use(cors());
 
 app.use('/users', users);
 
-
-
 app.listen(port, () => console.log('app is running on port ' + port));
-
 
 mongoose.connect(dbUrl.url, {dbName: 'data'}).then(() => console.log('success'), err => console.log(err));
 mongoose.Promise = global.Promise;

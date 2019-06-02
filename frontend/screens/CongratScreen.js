@@ -6,7 +6,7 @@ export default class CongratScreen extends React.Component {
     render() {
         return (
             <View>
-                <Text>Поздравляем, вы зарегистрированы</Text>
+                <Text>Поздравляем, вы вошли!</Text>
                 <Button
                     title='Перейти на главную'
                     onPress={() => this.props.navigation.navigate('HomeScreen')}

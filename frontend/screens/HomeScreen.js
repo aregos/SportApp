@@ -1,88 +1,155 @@
 import React from 'react';
 import {
-  Button,
-  ScrollView,
   StyleSheet,
   View,
   Text
 } from 'react-native';
+import {
+  Button
+} from 'react-native-elements';
+import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import IconAnt from 'react-native-vector-icons/AntDesign';
+import IconAwesome from 'react-native-vector-icons/FontAwesome';
+import {guestModeAction, logoutAction} from "../modules/auth/actions/action";
+
 import { connect } from 'react-redux';
 
 class HomeScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Home',
-  };
 
-  isLoggedScreen = () => {
+  mainGuestScreen = () => {
     return(
     <View>
-      <Text>Бла бла бла</Text>
+      <Text>Главная страница</Text>
+        <Text>Вы зашли как незарегистрированный пользователь, вы все еще можете</Text>
+        <Button
+            title='Зарегистрироваться'
+            style={styles.buttonStyle}
+            icon={
+                <IconAnt
+                    name="profile"
+                    size={15}
+                    color="white"
+                />
+            }
+            type='solid'
+            onPress={() => this.props.navigation.navigate('RegisterScreen')}
+        />
+        <Text>Если у вас уже есть аккаунт</Text>
+        <Button
+            title="Войти"
+            icon={
+                <Icon
+                    name="login"
+                    size={15}
+                    color="white"
+                />
+            }
+            type='solid'
+            onPress={() => this.props.navigation.navigate('LoginScreen')}
+        />
+        <Text>Контент</Text>
     </View>
     )
   };
 
-  render() {
+  mainLoggedScreen = () => {
+      return (
+          <View>
+              <Button
+                  title="Выйти"
+                  icon={
+                      <IconAnt
+                          name="logout"
+                          size={20}
+                          color="white"
+                      />
+                  }
+                  type='solid'
+                  onPress={() => this.props.logout()}
+              />
+              <Text>Контент</Text>
+          </View>
+      )
+  };
 
-    if (this.props.isLogged) return this.isLoggedScreen();
+  render() {
+    if (this.props.isLoading) return (
+        <View>
+          <Text>Загрузка...</Text>
+        </View>
+    );
+    else if (this.props.isGuestMode) return this.mainGuestScreen();
+    else if (this.props.isLogged) return this.mainLoggedScreen();
     else
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.getStartedContainer}>
             <Button
               title="Вход"
+              icon={
+                <Icon
+                    name="login"
+                    size={15}
+                    color="white"
+                />
+              }
+              type='solid'
               onPress={() => this.props.navigation.navigate('LoginScreen')}
             />
             <Button
               title="Регистрация"
+              style={styles.buttonStyle}
+              icon={
+                <IconAnt
+                    name="profile"
+                    size={15}
+                    color="white"
+                />
+              }
+              type='solid'
               onPress={() => this.props.navigation.navigate('RegisterScreen')}
             />
-          </View>
-        </ScrollView>
+            <Button
+              title="Войти без регистрации"
+              style={styles.buttonStyle}
+              icon={
+                <IconAwesome
+                  name="user-secret"
+                  size={15}
+                  color="white"
+                />
+              }
+              type='solid'
+              onPress={() => this.props.runGuestMode()}
+            />
       </View>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  isLogged: state.register.isLogged
+  name: state.register.login,
+  isLoading: state.register.isFetching,
+  isLogged: state.register.isLogged,
+  isGuestMode: state.register.isGuestMode
 });
 
-export default connect(mapStateToProps)(HomeScreen);
+const mapDispatchToProps = dispatch => ({
+  runGuestMode: () => dispatch(guestModeAction()),
+  logout: () => dispatch(logoutAction())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
 
 const styles = StyleSheet.create({
   container: {
+    position: 'relative',
     flex: 1,
     backgroundColor: '#fff',
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
+    flexDirection: 'column',
     alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
+    margin: 100
   },
-  getStartedContainer: {
-    alignItems: 'center',
-    margin: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
+  buttonStyle: {
+    marginTop: 40
+  }
 });

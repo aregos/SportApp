@@ -4,22 +4,22 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
     create: async function(req, res, next) {
-        const {email, name, password} = req.body;
+        const {email, login, password} = req.body;
         if (await userModel.findOne({"email" : req.body.email})) {
             res.status(500).json({
                 message: 'email уже занят',
                 data: req.body.email
             });
         }
-        else if (await userModel.findOne({"name" : req.body.name})) {
+        else if (await userModel.findOne({"login" : req.body.login})) {
             res.status(500).json({
                 message: 'Имя уже занято',
-                data: req.body.name
+                data: req.body.login
             });
         }
         else
         userModel.create({
-                name : name,
+                login : login,
                 email : email,
                 password : password
             },
@@ -31,13 +31,13 @@ module.exports = {
             else
             res.status(200).json({
                 message: 'Поздравляем, вы зарегистрированы!',
-                data: {login: req.body.name, email: req.body.email}
+                data: {login: req.body.login, email: req.body.email}
             })
         });
     },
 
     authenticate: function(req, res, next) {
-        userModel.findOne({ email : req.body.email}, function(err, userInfo) {
+        userModel.findOne({ login : req.body.login}, function(err, userInfo) {
             if (err) {
                 next(err);
             } else {
@@ -46,8 +46,8 @@ module.exports = {
                     const token = jwt.sign({id: userInfo._id}, req.app.get('secretKey'), {expiresIn: '1h'});
 
                     res.status(200).json({
-                        status: 'success',
-                        message: 'user found!',
+                        status: 'успешно',
+                        message: 'Вы вошли!',
                         data: {user: userInfo, token: token}
                     });
                 }
@@ -57,6 +57,17 @@ module.exports = {
                         message: 'Неправильный логин/пароль!',
                     });
                 }
+            }
+        })
+    },
+
+    update: function(req, res, next) {
+        userModel.updateOne({login: req.body.login}, {name: req.body.name}, function(err, result) {
+            if (err) {
+                res.status(500).json({error: err})
+            }
+            else {
+                res.status(500).json({result, name: req.body.name})
             }
         })
     }

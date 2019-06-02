@@ -6,7 +6,7 @@ const saltRounds = 10;
 
 const UserSchema = mongoose.Schema(
     {
-    name: {
+    login: {
         type: String,
         trim: true,
         required: true,
@@ -20,6 +20,18 @@ const UserSchema = mongoose.Schema(
         type: String,
         trim: true,
         required: true,
+    },
+    name: {
+        type: String,
+        trim: true
+    },
+    surName: {
+        type: String,
+        trim: true
+    },
+    dateOfBirth: {
+        type: Date,
+        trim: true
     }
     },
 );

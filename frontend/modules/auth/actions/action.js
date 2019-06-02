@@ -4,9 +4,18 @@ import {
     REGISTER_FAILURE,
     LOGIN_START,
     LOGIN_SUCCESS,
-    LOGIN_FAILURE
+    LOGIN_FAILURE,
+    LOGOUT_START,
+    LOGOUT_SUCCESS,
+    LOGOUT_FAILURE,
+    GUEST_MODE_START,
+    GUEST_MODE_SUCCESS,
+    GUEST_MODE_FAILURE,
+    UPDATE_START,
+    UPDATE_SUCCESS,
+    UPDATE_FAILURE
 } from './consts.js';
-import {registerApi, loginApi} from '../api.js';
+import {registerApi, loginApi, updateApi} from '../api.js';
 
 export const registerAction = (email, login, password) => {
     return async (dispatch) => {
@@ -33,5 +42,29 @@ export const loginAction = (login, password) => {
                 .catch(error => {
                     dispatch({type : LOGIN_FAILURE, payload: error})
                 })
+    }
+};
+
+export const logoutAction = () => {
+    return dispatch => {
+        dispatch({type: LOGOUT_START});
+        dispatch({type: LOGOUT_SUCCESS});
+    }
+};
+
+export const guestModeAction = () => {
+    return dispatch => {
+        dispatch({type: GUEST_MODE_START});
+        dispatch({type: GUEST_MODE_SUCCESS});
+    }
+};
+
+export const updateAction = (name) => {
+    return dispatch => {
+        dispatch({type: UPDATE_START});
+        updateApi(name)
+            .then(res => res.json())
+            .then(res => dispatch({type: UPDATE_SUCCESS, payload: res}))
+            .catch(err => dispatch({type: UPDATE_FAILURE, payload: err}))
     }
 };
