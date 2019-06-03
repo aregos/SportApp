@@ -62,12 +62,23 @@ module.exports = {
     },
 
     update: function(req, res, next) {
-        userModel.updateOne({login: req.body.login}, {name: req.body.name}, function(err, result) {
+        userModel.updateOne({login: req.body.login}, {...req.body}, function(err, result) {
             if (err) {
                 res.status(500).json({error: err})
             }
             else {
-                res.status(500).json({result, name: req.body.name})
+                res.status(200).json({result, ...req.body})
+            }
+        })
+    },
+
+    get: function(req, res, next) {
+        userModel.findOne({login: req.body.login}, function(err, result) {
+            if (err) {
+                res.status(500).json({error: err, message: 'Никого не найдено?'})
+            }
+            else {
+                res.status(200).json({user: result})
             }
         })
     }

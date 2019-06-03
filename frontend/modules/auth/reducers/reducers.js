@@ -13,7 +13,10 @@ import {
     GUEST_MODE_FAILURE,
     UPDATE_START,
     UPDATE_SUCCESS,
-    UPDATE_FAILURE
+    UPDATE_FAILURE,
+    GETUSERINFO_START,
+    GETUSERINFO_SUCCESS,
+    GETUSERINFO_FAILURE
 }
 from '../actions/consts.js';
 
@@ -21,6 +24,7 @@ const initialState = {
     email: '',
     login: '',
     name: '',
+    surName: '',
     token: null,
     message: '',
     isLogged: false,
@@ -59,7 +63,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 email: action.payload.data.user.email,
-                login: action.payload.data.user.name,
+                login: action.payload.data.user.login,
                 token: action.payload.data.token,
                 message: action.payload.message,
                 isFetching: false,
@@ -118,6 +122,23 @@ export default (state = initialState, action) => {
                 ...state,
                 isFetching: false,
                 message: action.payload.error
+            };
+        case GETUSERINFO_START:
+            return {
+                ...state,
+                isFetching: true
+            };
+        case GETUSERINFO_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+                name: action.payload.user.name,
+                surName: action.payload.user.surName
+            };
+        case GETUSERINFO_FAILURE:
+            return {
+                ...state,
+                isFetching: false
             };
         default:
             return state;

@@ -13,9 +13,12 @@ import {
     GUEST_MODE_FAILURE,
     UPDATE_START,
     UPDATE_SUCCESS,
-    UPDATE_FAILURE
+    UPDATE_FAILURE,
+    GETUSERINFO_START,
+    GETUSERINFO_SUCCESS,
+    GETUSERINFO_FAILURE
 } from './consts.js';
-import {registerApi, loginApi, updateApi} from '../api.js';
+import {registerApi, loginApi, updateApi, getUserInfoApi} from '../api.js';
 
 export const registerAction = (email, login, password) => {
     return async (dispatch) => {
@@ -59,12 +62,22 @@ export const guestModeAction = () => {
     }
 };
 
-export const updateAction = (name) => {
+export const updateUserInfoAction = (login, ...props) => {
     return dispatch => {
         dispatch({type: UPDATE_START});
-        updateApi(name)
+        updateApi(login, ...props)
             .then(res => res.json())
             .then(res => dispatch({type: UPDATE_SUCCESS, payload: res}))
             .catch(err => dispatch({type: UPDATE_FAILURE, payload: err}))
+    };
+};
+
+export const getUserInfoAction = login => {
+    return dispatch => {
+        dispatch({type: GETUSERINFO_START});
+        getUserInfoApi(login)
+            .then(res => res.json())
+            .then(res => dispatch({type: GETUSERINFO_SUCCESS, payload: res}))
+            .catch(err => dispatch({type: GETUSERINFO_FAILURE, payload: err}))
     }
 };

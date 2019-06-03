@@ -10,6 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import IconAnt from 'react-native-vector-icons/AntDesign';
 import IconAwesome from 'react-native-vector-icons/FontAwesome';
+import IconFeather from 'react-native-vector-icons/Feather';
 import {guestModeAction, logoutAction} from "../modules/auth/actions/action";
 
 import { connect } from 'react-redux';
@@ -56,7 +57,7 @@ class HomeScreen extends React.Component {
       return (
           <View>
               <Button
-                  title="Выйти"
+                  title="Выйти из аккаунта"
                   icon={
                       <IconAnt
                           name="logout"
@@ -66,6 +67,18 @@ class HomeScreen extends React.Component {
                   }
                   type='solid'
                   onPress={() => this.props.logout()}
+              />
+              <Button
+                  title="Редактировать информацию"
+                  icon={
+                      <IconFeather
+                        name="edit"
+                        size={20}
+                        color="white"
+                      />
+                  }
+                  type='solid'
+                  onPress={() => this.props.navigation.navigate('EditPersonalInfoScreen')}
               />
               <Text>Контент</Text>
           </View>
@@ -127,7 +140,7 @@ class HomeScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  name: state.register.login,
+  login: state.register.login,
   isLoading: state.register.isFetching,
   isLogged: state.register.isLogged,
   isGuestMode: state.register.isGuestMode

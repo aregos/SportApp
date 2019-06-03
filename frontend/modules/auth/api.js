@@ -1,4 +1,4 @@
-const url = 'http://192.168.0.10:8000/users';
+const url = 'http://10.203.65.126:8000/users';
 
 export const registerApi = async (email, login, password) => {
     const query = {
@@ -18,11 +18,20 @@ export const loginApi = async (login, password) => {
         return await fetch(`${url}/authenticate`, query)
 };
 
-export const updateApi = async (name) => {
+export const updateApi = async (login, ...props) => {
     const query = {
         method: 'POST',
         headers: {'Content-Type': 'application/json', 'accept': 'application/json'},
-        body: JSON.stringify({'name': name})
+        body: JSON.stringify({'login': login, ...props})
     };
-        return await fetch(`${url}/update`, query)
+        return await fetch(`${url}/updateUserInfo`, query)
+};
+
+export const getUserInfoApi = async (login) => {
+    const query = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'accept': 'application/json'},
+        body: JSON.stringify({login})
+    };
+        return await fetch(`${url}/getUserInfo`, query)
 };
