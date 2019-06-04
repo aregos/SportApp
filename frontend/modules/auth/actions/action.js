@@ -62,10 +62,10 @@ export const guestModeAction = () => {
     }
 };
 
-export const updateUserInfoAction = (login, ...props) => {
+export const updateUserInfoAction = (login, props) => {
     return dispatch => {
         dispatch({type: UPDATE_START});
-        updateApi(login, ...props)
+        updateApi(login, props)
             .then(res => res.json())
             .then(res => dispatch({type: UPDATE_SUCCESS, payload: res}))
             .catch(err => dispatch({type: UPDATE_FAILURE, payload: err}))

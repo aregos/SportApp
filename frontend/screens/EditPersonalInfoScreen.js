@@ -7,13 +7,14 @@ import {
     Input,
     Text
 } from 'react-native-elements';
+import DatePicker from 'react-native-datepicker'
 import BackLink from '../commonComponents/BackLink';
 
 class EditPersonalInfoScreen extends React.Component {
     state = {
-        email: '',
         name: '',
         surName: '',
+        birthDate: '01-01-1990'
     };
 
     componentDidMount() {
@@ -23,11 +24,11 @@ class EditPersonalInfoScreen extends React.Component {
     componentWillReceiveProps(nextProps, nextContext) {
         let changedProps = {};
         for (let key in nextProps) {
-            if (nextProps.key !== this.state.key) {
-                changedProps = {...changedProps, key : nextProps.key}
+            if (this.state.hasOwnProperty(key) && nextProps[key] !== this.state[key]) {
+                 changedProps[key] = nextProps[key];
             }
         }
-        this.setState({changedProps})
+        this.setState({...changedProps})
     };
 
     update = () => {
@@ -55,7 +56,31 @@ class EditPersonalInfoScreen extends React.Component {
                     value={this.state.surName}
                     onChangeText={ text => this.setState({surName: text})}
                 />
+                <DatePicker
+                    style={{width: 200}}
+                    date={this.state.birthDate}
+                    mode="date"
+                    placeholder="Выбрать дату"
+                    format="DD-MM-YYYY"
+                    minDate="01-01-1950"
+                    maxDate="01-01-2019"
+                    confirmBtnText="Confirm"
+                    cancelBtnText="Cancel"
+                    customStyles={{
+                        dateIcon: {
+                            position: 'absolute',
+                            left: 0,
+                            top: 4,
+                            marginLeft: 0
+                        },
+                        dateInput: {
+                            marginLeft: 36
+                        }
+                    }}
+                    onDateChange={(date) => {this.setState({birthDate: date})}}
+                />
                 <Button
+                    title='Изменить'
                     onPress={this.update}
                 />
             </View>

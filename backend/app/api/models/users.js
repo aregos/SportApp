@@ -29,7 +29,7 @@ const UserSchema = mongoose.Schema(
         type: String,
         trim: true
     },
-    dateOfBirth: {
+    birthDate: {
         type: Date,
         trim: true
     }
