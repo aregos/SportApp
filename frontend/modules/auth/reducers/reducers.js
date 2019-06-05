@@ -25,6 +25,7 @@ const initialState = {
     login: '',
     name: '',
     surName: '',
+    birthDate: '',
     token: null,
     message: '',
     isLogged: false,
@@ -115,7 +116,9 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: false,
-                name: action.payload.data.name
+                name: action.payload.name,
+                surName: action.payload.surName,
+                birthDate: action.payload.birthDate
             };
         case UPDATE_FAILURE:
             return {
