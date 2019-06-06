@@ -80,7 +80,8 @@ export const getUserInfoAction = login => {
             .then(res => res.json())
             .then(res => {
                 if (res.user.birthDate) {
-                    res.user.birthDate = moment(res.user.birthDate, 'DD-MM-YYYY');
+                    const birthDate = res.user.birthDate.slice(0, 10).split('-');
+                    res.user.birthDate = birthDate[2] + `-` + birthDate[1] + `-` + birthDate[0];
                 }
                 dispatch({type: GETUSERINFO_SUCCESS, payload: res})
             })

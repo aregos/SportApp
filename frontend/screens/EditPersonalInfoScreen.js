@@ -32,7 +32,8 @@ class EditPersonalInfoScreen extends React.Component {
     };
 
     update = () => {
-        this.props.updateUserInfo(this.props.login, this.state);
+        const updatedInfo = {...this.state};
+        this.props.updateUserInfo(this.props.login, updatedInfo);
     };
 
     render() {
