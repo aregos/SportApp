@@ -62,12 +62,12 @@ module.exports = {
     },
 
     update: function(req, res, next) {
-        userModel.updateOne({login: req.body.login}, {...req.body}, function(err, result) {
+        userModel.updateOne({login: req.body.login}, {...req.body.updateInfo}, function(err, result) {
             if (err) {
                 res.status(500).json({error: err})
             }
             else {
-                res.status(200).json({result, ...req.body})
+                res.status(200).json({result, ...req.body.updateInfo})
             }
         })
     },

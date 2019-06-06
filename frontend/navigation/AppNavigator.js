@@ -5,13 +5,15 @@ import RegisterScreen from '../screens/RegisterScreen.js';
 import LoginScreen from '../screens/LoginScreen.js';
 import CongratScreen from '../screens/CongratScreen.js';
 import EditPersonalInfoScreen from '../screens/EditPersonalInfoScreen';
+import NewsScreen from '../screens/NewsScreen';
 
 const stackNavigator = createStackNavigator({
         HomeScreen,
         RegisterScreen,
         LoginScreen,
         CongratScreen,
-        EditPersonalInfoScreen
+        EditPersonalInfoScreen,
+        NewsScreen
     },
 {
         initialRouteName: 'HomeScreen'

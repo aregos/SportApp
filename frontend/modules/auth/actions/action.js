@@ -19,7 +19,6 @@ import {
     GETUSERINFO_FAILURE
 } from './consts.js';
 import {registerApi, loginApi, updateApi, getUserInfoApi} from '../api.js';
-import moment from 'moment';
 
 export const registerAction = (email, login, password) => {
     return async (dispatch) => {
@@ -68,7 +67,13 @@ export const updateUserInfoAction = (login, props) => {
         dispatch({type: UPDATE_START});
         updateApi(login, props)
             .then(res => res.json())
-            .then(res => dispatch({type: UPDATE_SUCCESS, payload: res}))
+            .then(res => {
+                if (res.birthDate) {
+                    const birthDate = res.birthDate.slice(0, 10).split('-');
+                    res.birthDate = birthDate[2] + `-` + birthDate[1] + `-` + birthDate[0];
+                }
+                dispatch({type: UPDATE_SUCCESS, payload: res})
+            })
             .catch(err => dispatch({type: UPDATE_FAILURE, payload: err}))
     };
 };

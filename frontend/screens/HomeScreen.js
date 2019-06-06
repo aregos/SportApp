@@ -49,6 +49,10 @@ class HomeScreen extends React.Component {
             onPress={() => this.props.navigation.navigate('LoginScreen')}
         />
         <Text>Контент</Text>
+        <Button
+            title="Новости спорта"
+            onPress={() => this.props.navigation.navigate('NewsScreen')}
+        />
     </View>
     )
   };
@@ -81,6 +85,10 @@ class HomeScreen extends React.Component {
                   onPress={() => this.props.navigation.navigate('EditPersonalInfoScreen')}
               />
               <Text>Контент</Text>
+              <Button
+                  title="Новости спорта"
+                  onPress={() => this.props.navigation.navigate('NewsScreen')}
+              />
           </View>
       )
   };
