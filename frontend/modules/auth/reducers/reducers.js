@@ -136,7 +136,8 @@ export default (state = initialState, action) => {
                 ...state,
                 isFetching: false,
                 name: action.payload.user.name,
-                surName: action.payload.user.surName
+                surName: action.payload.user.surName,
+                birthDate: action.payload.user.birthDate
             };
         case GETUSERINFO_FAILURE:
             return {

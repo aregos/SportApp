@@ -45,12 +45,14 @@ class LoginScreen extends React.Component {
                 <Input
                     style={{ borderWidth : 4 }}
                     value={this.state.login}
+                    shake={true}
                     onChangeText = { text => this.setState({login : text})}
                 />
                 <Text>Пароль</Text>
                 <Input
                     style={{ borderWidth : 4}}
                     value={this.state.password}
+                    shake={true}
                     onChangeText = { text => this.setState({password : text})}
                 />
                 <Button

@@ -89,10 +89,11 @@ class EditPersonalInfoScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-   isLoading: state.register.isFetching,
-   login: state.register.login,
-   name: state.register.name,
-   surName: state.register.surName
+    isLoading: state.register.isFetching,
+    login: state.register.login,
+    name: state.register.name,
+    surName: state.register.surName,
+    birthDate: state.register.birthDate
 });
 
 const mapDispatchToProps = dispatch => ({
