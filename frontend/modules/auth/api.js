@@ -1,4 +1,4 @@
-const url = 'http://192.168.0.10:8000/users';
+const url = 'http://10.203.65.126:8000/users';
 
 export const registerApi = async (email, login, password) => {
     const query = {

@@ -9,9 +9,9 @@ export default props => {
         <ScrollView>
             <Card title='Новости'>
             {
-                news.map((news, index) => {
+                news.map((article, index) => {
                     return (
-                    <NewsCard news={news} key = {index}/>
+                    <NewsCard article={article} key = {index}/>
                     )
                 })
             }

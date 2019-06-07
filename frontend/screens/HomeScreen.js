@@ -18,7 +18,7 @@ import { connect } from 'react-redux';
 class HomeScreen extends React.Component {
 
   mainGuestScreen = () => {
-    return(
+    return (
     <View>
       <Text>Главная страница</Text>
         <Text>Вы зашли как незарегистрированный пользователь, вы все еще можете</Text>
@@ -106,6 +106,7 @@ class HomeScreen extends React.Component {
       <View style={styles.container}>
             <Button
               title="Вход"
+              style={styles.buttonStyle}
               icon={
                 <Icon
                     name="login"
@@ -163,14 +164,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
 
 const styles = StyleSheet.create({
   container: {
-    position: 'relative',
+    display: 'flex',
     flex: 1,
     backgroundColor: '#fff',
     flexDirection: 'column',
     alignItems: 'center',
-    margin: 100
+    justifyContent: 'center'
   },
   buttonStyle: {
-    marginTop: 40
+      position: 'relative',
+    marginTop: 100
   }
 });

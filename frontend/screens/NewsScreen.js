@@ -22,6 +22,7 @@ class NewScreen extends React.Component {
             <View>
                 <Button
                     title="Обновить"
+                    onPress={this.props.fetch}
                 />
                 <NewsList news = {this.props.news}/>
             </View>
