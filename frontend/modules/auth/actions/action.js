@@ -88,6 +88,9 @@ export const getUserInfoAction = login => {
                     const birthDate = res.user.birthDate.slice(0, 10).split('-');
                     res.user.birthDate = birthDate[2] + `-` + birthDate[1] + `-` + birthDate[0];
                 }
+                if (res.user.gender === false || res.user.gender === true) {
+                    res.user.gender = res.user.gender ? 1 : 0;
+                }
                 dispatch({type: GETUSERINFO_SUCCESS, payload: res})
             })
             .catch(err => dispatch({type: GETUSERINFO_FAILURE, payload: err}))

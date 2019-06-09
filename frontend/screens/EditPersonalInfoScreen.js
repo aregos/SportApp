@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {getUserInfoAction, updateUserInfoAction} from '../modules/auth/actions/action';
 import {
     Button,
+    ButtonGroup,
     Input,
     Text
 } from 'react-native-elements';
@@ -14,7 +15,8 @@ class EditPersonalInfoScreen extends React.Component {
     state = {
         name: '',
         surName: '',
-        birthDate: '01-01-1990'
+        birthDate: '01-01-1990',
+        gender: null
     };
 
     componentDidMount() {
@@ -36,7 +38,14 @@ class EditPersonalInfoScreen extends React.Component {
         this.props.updateUserInfo(this.props.login, updatedInfo);
     };
 
+    updateGender = (gender) => {
+        this.setState({gender});
+    };
+
     render() {
+
+        const genderButtons = ['Мужской', 'Женский'];
+
             if (this.props.isLoading) return (
                 <View>
                     <Text>Загрузка...</Text>
@@ -56,6 +65,11 @@ class EditPersonalInfoScreen extends React.Component {
                     placeholder='Фамилия'
                     value={this.state.surName}
                     onChangeText={ text => this.setState({surName: text})}
+                />
+                <ButtonGroup
+                    buttons={genderButtons}
+                    onPress={this.updateGender}
+                    selectedIndex={this.state.gender}
                 />
                 <DatePicker
                     style={{width: 200}}
@@ -94,7 +108,8 @@ const mapStateToProps = state => ({
     login: state.register.login,
     name: state.register.name,
     surName: state.register.surName,
-    birthDate: state.register.birthDate
+    birthDate: state.register.birthDate,
+    gender: state.register.gender
 });
 
 const mapDispatchToProps = dispatch => ({

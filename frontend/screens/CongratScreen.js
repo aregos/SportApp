@@ -1,13 +1,14 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 
 export default class CongratScreen extends React.Component {
 
     render() {
         return (
-            <View>
-                <Text>Поздравляем, вы вошли!</Text>
+            <View style={styles.container}>
+                <Text style={styles.textStyle}>Поздравляем, вы вошли!</Text>
                 <Button
+                    buttonStyle={styles.buttonStyle}
                     title='Перейти на главную'
                     onPress={() => this.props.navigation.navigate('HomeScreen')}
                 />
@@ -15,3 +16,16 @@ export default class CongratScreen extends React.Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    textStyle: {
+        marginTop: 20
+    },
+    buttonStyle: {
+        marginTop: 20
+    }
+});

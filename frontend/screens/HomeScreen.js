@@ -1,30 +1,103 @@
 import React from 'react';
 import {
-  StyleSheet,
-  View,
-  Text
+    StyleSheet,
+    View,
+    ScrollView,
+    Text,
+    ImageBackground
 } from 'react-native';
 import {
-  Button
+    Button,
+    Header
 } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import IconAnt from 'react-native-vector-icons/AntDesign';
 import IconAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFeather from 'react-native-vector-icons/Feather';
 import {guestModeAction, logoutAction} from "../modules/auth/actions/action";
+import girlMoscow from '../images/girl-moscow.jpg';
+import girlBox from '../images/girl-box.jpg';
 
 import { connect } from 'react-redux';
 
 class HomeScreen extends React.Component {
 
+    state = {
+        showLeftMenu: false
+    };
+
+  leftMenu = () => {
+      if (this.state.showLeftMenu)
+      return (
+          <ScrollView
+              style={styles.leftMenu}
+          >
+              <Button
+                  title='Друзья'
+                  buttonStyle={styles.leftMenuButton}
+              />
+              <Button
+                  title='Сообщения'
+                  buttonStyle={styles.leftMenuButton}
+              />
+              <Button
+                  title='Тренировки'
+                  buttonStyle={styles.leftMenuButton}
+              />
+              <Button
+                  title='Команды'
+                  buttonStyle={styles.leftMenuButton}
+              />
+              <Button
+                  title='Новости'
+                  buttonStyle={styles.leftMenuButton}
+                  onPress={() => this.props.navigation.navigate('NewsScreen')}
+              />
+              <Button
+                  title='Тренеры'
+                  buttonStyle={styles.leftMenuButton}
+              />
+              <Button
+                  title='Клубы/секции'
+                  buttonStyle={styles.leftMenuButton}
+              />
+              <Button
+                  title='Мед. услуги'
+                  buttonStyle={styles.leftMenuButton}
+              />
+              <Button
+                  title='Страхование'
+                  buttonStyle={styles.leftMenuButton}
+              />
+              <Button
+                  title='Настройки'
+                  buttonStyle={styles.leftMenuButton}
+              />
+          </ScrollView>
+      );
+      else return null;
+  };
+
+  handleShowLeftMenu = () => {
+      this.setState({showLeftMenu: !this.state.showLeftMenu})
+  };
+
   mainGuestScreen = () => {
     return (
-    <View>
-      <Text>Главная страница</Text>
-        <Text>Вы зашли как незарегистрированный пользователь, вы все еще можете</Text>
+        <ImageBackground
+            source={girlBox}
+            style={styles.container}
+        >
+        <Header
+        leftComponent={{icon: 'menu', onPress: this.handleShowLeftMenu}}
+        centerComponent={{text: 'Главная'}}
+        containerStyle={{opacity: 100}}
+        />
+        {this.leftMenu()}
+        <Text style={styles.textStyle}>Вы зашли как незарегистрированный пользователь, вы все еще можете</Text>
         <Button
             title='Зарегистрироваться'
-            style={styles.buttonStyle}
+            buttonStyle={styles.buttonStyle}
             icon={
                 <IconAnt
                     name="profile"
@@ -35,9 +108,10 @@ class HomeScreen extends React.Component {
             type='solid'
             onPress={() => this.props.navigation.navigate('RegisterScreen')}
         />
-        <Text>Если у вас уже есть аккаунт</Text>
+        <Text style={styles.textStyle}>Если у вас уже есть аккаунт</Text>
         <Button
             title="Войти"
+            buttonStyle={styles.buttonStyle}
             icon={
                 <Icon
                     name="login"
@@ -48,19 +122,29 @@ class HomeScreen extends React.Component {
             type='solid'
             onPress={() => this.props.navigation.navigate('LoginScreen')}
         />
-        <Text>Контент</Text>
+        <Text style={styles.textStyle}>Контент</Text>
         <Button
             title="Новости спорта"
+            buttonStyle={styles.buttonStyle}
             onPress={() => this.props.navigation.navigate('NewsScreen')}
         />
-    </View>
+        </ImageBackground>
     )
   };
 
   mainLoggedScreen = () => {
       return (
-          <View>
+          <ImageBackground
+              source={girlBox}
+              style={styles.container}
+          >
+              <Header
+                  leftComponent={{icon: 'menu', onPress: this.handleShowLeftMenu}}
+                  centerComponent={{text: 'Главная'}}
+              />
+              {this.leftMenu()}
               <Button
+                  buttonStyle={styles.buttonStyle}
                   title="Выйти из аккаунта"
                   icon={
                       <IconAnt
@@ -73,6 +157,7 @@ class HomeScreen extends React.Component {
                   onPress={() => this.props.logout()}
               />
               <Button
+                  buttonStyle={styles.buttonStyle}
                   title="Редактировать информацию"
                   icon={
                       <IconFeather
@@ -84,12 +169,13 @@ class HomeScreen extends React.Component {
                   type='solid'
                   onPress={() => this.props.navigation.navigate('EditPersonalInfoScreen')}
               />
-              <Text>Контент</Text>
+              <Text style={styles.textStyle}>Контент</Text>
               <Button
+                  buttonStyle={styles.buttonStyle}
                   title="Новости спорта"
                   onPress={() => this.props.navigation.navigate('NewsScreen')}
               />
-          </View>
+          </ImageBackground>
       )
   };
 
@@ -103,10 +189,13 @@ class HomeScreen extends React.Component {
     else if (this.props.isLogged) return this.mainLoggedScreen();
     else
     return (
-      <View style={styles.container}>
+          <ImageBackground
+              source={girlBox}
+              style={styles.container}
+          >
             <Button
               title="Вход"
-              style={styles.buttonStyle}
+              buttonStyle={{...styles.buttonStyle, marginTop: 0}}
               icon={
                 <Icon
                     name="login"
@@ -119,7 +208,7 @@ class HomeScreen extends React.Component {
             />
             <Button
               title="Регистрация"
-              style={styles.buttonStyle}
+              buttonStyle={styles.buttonStyle}
               icon={
                 <IconAnt
                     name="profile"
@@ -132,7 +221,7 @@ class HomeScreen extends React.Component {
             />
             <Button
               title="Войти без регистрации"
-              style={styles.buttonStyle}
+              buttonStyle={styles.buttonStyle}
               icon={
                 <IconAwesome
                   name="user-secret"
@@ -143,7 +232,7 @@ class HomeScreen extends React.Component {
               type='solid'
               onPress={() => this.props.runGuestMode()}
             />
-      </View>
+          </ImageBackground>
     );
   }
 }
@@ -164,15 +253,34 @@ export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
-    flex: 1,
-    backgroundColor: '#fff',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center'
+      width: '100%',
+      height: '100%',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center'
+  },
+  header: {
+      color: 'white',
+  },
+  leftMenu: {
+      position: 'absolute',
+      marginTop: 80,
+      width: 150,
+      zIndex: 100
+  },
+  leftMenuButton: {
+      backgroundColor: 'black',
   },
   buttonStyle: {
-      position: 'relative',
-    marginTop: 100
-  }
+      marginVertical: 10,
+      padding: 20,
+      width: 300,
+      height: 50,
+      backgroundColor: '#50b593',
+      borderWidth: 1,
+      borderColor: 'white'
+  },
+    textStyle: {
+      marginVertical: 20
+    }
 });

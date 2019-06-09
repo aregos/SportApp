@@ -26,6 +26,7 @@ const initialState = {
     name: '',
     surName: '',
     birthDate: '',
+    gender: null,
     token: null,
     message: '',
     isLogged: false,
@@ -118,7 +119,8 @@ export default (state = initialState, action) => {
                 isFetching: false,
                 name: action.payload.name,
                 surName: action.payload.surName,
-                birthDate: action.payload.birthDate
+                birthDate: action.payload.birthDate,
+                gender: action.payload.gender
             };
         case UPDATE_FAILURE:
             return {
@@ -137,7 +139,8 @@ export default (state = initialState, action) => {
                 isFetching: false,
                 name: action.payload.user.name,
                 surName: action.payload.user.surName,
-                birthDate: action.payload.user.birthDate
+                birthDate: action.payload.user.birthDate,
+                gender: action.payload.user.gender
             };
         case GETUSERINFO_FAILURE:
             return {
