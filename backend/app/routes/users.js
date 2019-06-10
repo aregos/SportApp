@@ -4,7 +4,9 @@ const userController = require('../api/controllers/users');
 
 router.post('/register', userController.create);
 router.post('/authenticate', userController.authenticate);
-router.post('/updateUserInfo', userController.update);
-router.post('/getUserInfo', userController.get);
+router.post('/updateUserInfo', userController.updateUserInfo);
+router.post('/getUserInfo', userController.getUserInfo);
+router.post('/updateSettingsList', userController.updateSettingsList);
+router.post('/getSettingsList', userController.getSettingList);
 
 module.exports = router;

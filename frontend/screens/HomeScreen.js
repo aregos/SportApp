@@ -86,18 +86,18 @@ class HomeScreen extends React.Component {
     return (
         <ImageBackground
             source={girlBox}
-            style={styles.container}
+            style={styles.guestContainer}
         >
         <Header
-        leftComponent={{icon: 'menu', onPress: this.handleShowLeftMenu}}
-        centerComponent={{text: 'Главная'}}
-        containerStyle={{opacity: 100}}
+            leftComponent={{icon: 'menu', onPress: this.handleShowLeftMenu}}
+            centerComponent={{text: 'Главная'}}
+            containerStyle={styles.header}
         />
         {this.leftMenu()}
         <Text style={styles.textStyle}>Вы зашли как незарегистрированный пользователь, вы все еще можете</Text>
         <Button
             title='Зарегистрироваться'
-            buttonStyle={styles.buttonStyle}
+            buttonStyle={{...styles.buttonStyle, marginTop: 0}}
             icon={
                 <IconAnt
                     name="profile"
@@ -136,11 +136,12 @@ class HomeScreen extends React.Component {
       return (
           <ImageBackground
               source={girlBox}
-              style={styles.container}
+              style={styles.loggedContainer}
           >
               <Header
                   leftComponent={{icon: 'menu', onPress: this.handleShowLeftMenu}}
                   centerComponent={{text: 'Главная'}}
+                  containerStyle={styles.header}
               />
               {this.leftMenu()}
               <Button
@@ -191,7 +192,7 @@ class HomeScreen extends React.Component {
     return (
           <ImageBackground
               source={girlBox}
-              style={styles.container}
+              style={styles.mainContainer}
           >
             <Button
               title="Вход"
@@ -252,20 +253,35 @@ const mapDispatchToProps = dispatch => ({
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
       width: '100%',
       height: '100%',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
+  },
+  loggedContainer: {
+      width: '100%',
+      height: '100%',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+  },
+  guestContainer: {
+        width: '100%',
+        height: '100%',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between',
   },
   header: {
-      color: 'white',
+      opacity: 0.4,
   },
   leftMenu: {
       position: 'absolute',
       marginTop: 80,
       width: 150,
+      left: 0,
       zIndex: 100
   },
   leftMenuButton: {
@@ -278,9 +294,11 @@ const styles = StyleSheet.create({
       height: 50,
       backgroundColor: '#50b593',
       borderWidth: 1,
-      borderColor: 'white'
+      borderColor: 'white',
+      opacity: 0.8
   },
     textStyle: {
-      marginVertical: 20
+      marginVertical: 20,
+        color: 'white'
     }
 });

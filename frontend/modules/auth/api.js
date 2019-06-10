@@ -1,4 +1,4 @@
-const url = 'http://192.168.0.10:8000/users';
+const url = 'http://10.203.65.126:8000/users';
 
 export const registerApi = async (email, login, password) => {
     const query = {
@@ -23,7 +23,6 @@ export const updateApi = async (login, props) => {
     if (updateInfo.birthDate) {
         const dateParts = updateInfo.birthDate.split('-');
         updateInfo.birthDate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
-        console.log(updateInfo);
     }
     const query = {
         method: 'POST',
@@ -40,4 +39,22 @@ export const getUserInfoApi = async (login) => {
         body: JSON.stringify({login})
     };
         return await fetch(`${url}/getUserInfo`, query)
+};
+
+export const updateSettingsListApi = async (login, settingsList) => {
+    const query = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'accept': 'application/json'},
+        body: JSON.stringify({login, settingsList})
+    };
+        return await fetch(`${url}/updateSettingsList`, query)
+};
+
+export const getSettingsListApi = async (login) => {
+    const query = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'accept': 'application/json'},
+        body: JSON.stringify({login})
+    };
+        return await fetch(`${url}/getSettingsList`, query)
 };

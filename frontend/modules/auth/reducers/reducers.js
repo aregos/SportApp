@@ -32,6 +32,7 @@ const initialState = {
     isLogged: false,
     isGuestMode: false,
     isFetching: false,
+    settingsList: ['trainings', 'coaches', 'news', 'hotels']
 };
 
 export default (state = initialState, action) => {

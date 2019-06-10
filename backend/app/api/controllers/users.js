@@ -61,10 +61,11 @@ module.exports = {
         })
     },
 
-    update: function(req, res, next) {
+    updateUserInfo: function(req, res, next) {
         userModel.updateOne({login: req.body.login}, {...req.body.updateInfo}, function(err, result) {
             if (err) {
-                res.status(500).json({error: err})
+                res.status(500).json({error: err});
+                next(err);
             }
             else {
                 res.status(200).json({result, ...req.body.updateInfo})
@@ -72,13 +73,38 @@ module.exports = {
         })
     },
 
-    get: function(req, res, next) {
+    getUserInfo: function(req, res, next) {
         userModel.findOne({login: req.body.login}, function(err, result) {
             if (err) {
-                res.status(500).json({error: err, message: 'Никого не найдено?'})
+                res.status(500).json({error: err, message: 'Никого не найдено?'});
+                next(err);
             }
             else {
                 res.status(200).json({user: result})
+            }
+        })
+    },
+
+    updateSettingsList: function(req, res, next) {
+        userModel.updateOne({login: req.body.login}, {settingsList: req.body.userSettings}, function(err, result) {
+            if (err) {
+                res.status(500).json({error: err, message: 'Не найден пользователь или не удалось обновить список настроек'});
+                next(err);
+            }
+            else {
+                res.status(200).json({settingsList: req.body.userSettings})
+            }
+        })
+    },
+
+    getSettingList: function(req, res, next) {
+        userModel.findOne({login: req.body.login}, function(err, result) {
+            if (err) {
+                res.status(500).json({error: err, message: 'Не удалось получить данные настроек пользователя'});
+                next(err);
+            }
+            else {
+                res.status(200).json({settingList: result.settingList})
             }
         })
     }

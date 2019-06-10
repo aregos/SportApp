@@ -1,9 +1,11 @@
 import React from 'react';
 import {View} from 'react-native';
-import {Button, Text} from 'react-native-elements';
+import {Button, Text, Icon} from 'react-native-elements';
+import IconAwesome from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux';
 import {fetchNews} from "../modules/news/actions/action";
 import NewsList from '../modules/news/components/NewsList';
+import IconAnt from "react-native-vector-icons/AntDesign";
 
 class NewScreen extends React.Component {
 
@@ -21,7 +23,13 @@ class NewScreen extends React.Component {
         return (
             <View>
                 <Button
-                    title="Обновить"
+                    icon={
+                        <IconAwesome
+                            name="refresh"
+                            size={15}
+                            color="white"
+                        />
+                    }
                     onPress={this.props.fetch}
                 />
                 <NewsList news = {this.props.news}/>

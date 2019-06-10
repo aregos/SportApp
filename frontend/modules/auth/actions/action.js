@@ -16,9 +16,15 @@ import {
     UPDATE_FAILURE,
     GETUSERINFO_START,
     GETUSERINFO_SUCCESS,
-    GETUSERINFO_FAILURE
+    GETUSERINFO_FAILURE,
+    UPDATESETTINGSLIST_START,
+    UPDATESETTINGSLIST_SUCCESS,
+    UPDATESETTINGSLIST_FAILURE,
+    GETSETTINGSLIST_START,
+    GETSETTINGSLIST_SUCCESS,
+    GETSETTINGSLIST_FAILURE
 } from './consts.js';
-import {registerApi, loginApi, updateApi, getUserInfoApi} from '../api.js';
+import {registerApi, loginApi, updateApi, getUserInfoApi, updateSettingsListApi, getSettingsListApi} from '../api.js';
 
 export const registerAction = (email, login, password) => {
     return async (dispatch) => {
@@ -94,5 +100,29 @@ export const getUserInfoAction = login => {
                 dispatch({type: GETUSERINFO_SUCCESS, payload: res})
             })
             .catch(err => dispatch({type: GETUSERINFO_FAILURE, payload: err}))
+    }
+};
+
+export const updateSettingsList = (login, settingList) => {
+    return dispatch => {
+        dispatch({type: UPDATESETTINGSLIST_START});
+        updateSettingsListApi(login, settingList)
+            .then(res => res.json())
+            .then(res => {
+                dispatch({type: UPDATESETTINGSLIST_SUCCESS, payload: res})
+            })
+            .catch(err => dispatch({type: UPDATESETTINGSLIST_FAILURE, payload: err}))
+    }
+};
+
+export const getSettingsList = login => {
+    return dispatch => {
+        dispatch({type: GETSETTINGSLIST_START});
+        getSettingsListApi(login)
+            .then(res => res.json())
+            .then(res => {
+                dispatch({type: GETSETTINGSLIST_SUCCESS, payload: res})
+            })
+            .catch(err => dispatch({type: GETSETTINGSLIST_FAILURE, payload: err}))
     }
 };
