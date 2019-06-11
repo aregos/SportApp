@@ -72,6 +72,7 @@ class HomeScreen extends React.Component {
               <Button
                   title='Настройки'
                   buttonStyle={styles.leftMenuButton}
+                  onPress={() => this.props.navigation.navigate('SettingsScreen')}
               />
           </ScrollView>
       );

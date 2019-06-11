@@ -1,7 +1,8 @@
 import React from 'react';
 import {ScrollView} from 'react-native';
-import { CheckBox, Text } from 'react-native-elements'
+import { CheckBox, Text, Button } from 'react-native-elements'
 import {connect} from 'react-redux';
+import {updateSettingsList, getSettingsList} from "../modules/auth/actions/action";
 
 
 class SettingsScreen extends React.Component {
@@ -17,6 +18,14 @@ class SettingsScreen extends React.Component {
         travels: false,
         insurance: false,
         medicalServices: false
+    };
+
+    componentDidMount() {
+        this.props.getSettingsList(this.props.login);
+    }
+
+    updateSettingsList = () => {
+        this.props.updateSettingsList(this.props.login, {...this.state})
     };
 
     render() {
@@ -72,9 +81,22 @@ class SettingsScreen extends React.Component {
                     title='Мед. услуги'
                     checked={this.state.medicalServices}
                 />
+                <Button
+                    title='Сохранить'
+                    onPress={this.updateSettingsList}
+                />
             </ScrollView>
         )
     }
 }
 
-export default connect()(SettingsScreen)
+const mapStateToProps = state => ({
+    login: state.register.login
+});
+
+const mapDispatchToProps = dispatch => ({
+    getSettingsList: (login) => dispatch(getSettingsList(login)),
+    updateSettingsList: (login, settingsList) => dispatch(updateSettingsList(login, settingsList))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsScreen)
