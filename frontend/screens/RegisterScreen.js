@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, TextInput, Button, Alert } from 'react-native';
+import { View, Alert, StyleSheet} from 'react-native';
+import {Text, Button, Input} from 'react-native-elements';
 import { connect } from 'react-redux';
 import {registerAction} from '../modules/auth/actions/action.js';
 import validator from '../modules/auth/helpers/validator';
@@ -43,29 +44,32 @@ export class RegisterScreen extends React.Component {
 
     render() {
         return (
-            <View>
+            <View
+                style={styles.container}
+            >
                 <Text>Email</Text>
-                <TextInput
+                <Input
                     style={{ borderWidth : 4 }}
                     value={this.state.email}
                     maxLength={40}
                     onChangeText={ (text) => this.setState({email: text})}
                 />
                 <Text>Логин</Text>
-                <TextInput
+                <Input
                     style={{ borderWidth : 4 }}
                     value={this.state.login}
                     maxLength={14}
                     onChangeText={ (text) => this.setState({login: text})}
                 />
                 <Text>Пароль</Text>
-                <TextInput
+                <Input
                     style={{ borderWidth : 4}}
                     value={this.state.password}
                     maxLength={14}
                     onChangeText={ (text) => this.setState({password: text}) }
                 />
                 <Button
+                    buttonStyle={styles.buttonStyle}
                     title='Зарегистрироваться'
                     onPress={this.register}
                 />
@@ -84,3 +88,18 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterScreen)
+
+const styles = StyleSheet.create({
+    container: {
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    buttonStyle: {
+        width: 300,
+        height: 50,
+        backgroundColor: '#50b593',
+        borderWidth: 1,
+        borderColor: 'white',
+        opacity: 0.8
+    }
+});

@@ -5,7 +5,7 @@ export default [
     },
     {
         title: 'Новости спорта',
-        navigate: '',
+        navigate: 'NewsScreen',
     },
     {
         title: 'Команды',

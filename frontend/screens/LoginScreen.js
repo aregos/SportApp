@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, Alert} from 'react-native';
-import {Input, Button} from 'react-native-elements';
+import {View, Alert, StyleSheet} from 'react-native';
+import {Input, Button, Text} from 'react-native-elements';
 import { connect } from 'react-redux';
 import { loginAction } from '../modules/auth/actions/action';
 import validator from '../modules/auth/helpers/validator';
@@ -40,7 +40,9 @@ class LoginScreen extends React.Component {
         );
         else
         return (
-            <View>
+            <View
+                style={styles.container}
+            >
                 <Text>Логин</Text>
                 <Input
                     style={{ borderWidth : 4 }}
@@ -57,6 +59,7 @@ class LoginScreen extends React.Component {
                 />
                 <Button
                     title='Вход'
+                    buttonStyle={styles.buttonStyle}
                     onPress={this.login}
                     type='solid'
                 />
@@ -76,3 +79,18 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)
+
+const styles = StyleSheet.create({
+    container: {
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    buttonStyle: {
+        width: 300,
+        height: 50,
+        backgroundColor: '#50b593',
+        borderWidth: 1,
+        borderColor: 'white',
+        opacity: 0.8
+    }
+});

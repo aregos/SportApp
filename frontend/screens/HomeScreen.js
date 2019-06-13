@@ -33,7 +33,8 @@ class HomeScreen extends React.Component {
     }
 
     leftMenu = () => {
-      if (this.state.showLeftMenu)
+      if (this.state.showLeftMenu) {
+          const availableSettings = this.props.settingsList;
       return (
           <ScrollView
               style={styles.leftMenu}
@@ -82,6 +83,7 @@ class HomeScreen extends React.Component {
               />
           </ScrollView>
       );
+  }
       else return null;
   };
 
@@ -95,46 +97,46 @@ class HomeScreen extends React.Component {
             source={girlBox}
             style={styles.guestContainer}
         >
-        <Header
-            leftComponent={{icon: 'menu', onPress: this.handleShowLeftMenu}}
-            centerComponent={{text: 'Главная'}}
-            containerStyle={styles.header}
-        />
-        {this.leftMenu()}
-        <Text style={styles.textStyle}>Вы зашли как незарегистрированный пользователь, вы все еще можете</Text>
-        <Button
-            title='Зарегистрироваться'
-            buttonStyle={{...styles.buttonStyle, marginTop: 0}}
-            icon={
-                <IconAnt
-                    name="profile"
-                    size={15}
-                    color="white"
-                />
-            }
-            type='solid'
-            onPress={() => this.props.navigation.navigate('RegisterScreen')}
-        />
-        <Text style={styles.textStyle}>Если у вас уже есть аккаунт</Text>
-        <Button
-            title="Войти"
-            buttonStyle={styles.buttonStyle}
-            icon={
-                <Icon
-                    name="login"
-                    size={15}
-                    color="white"
-                />
-            }
-            type='solid'
-            onPress={() => this.props.navigation.navigate('LoginScreen')}
-        />
-        <Text style={styles.textStyle}>Контент</Text>
-        <Button
-            title="Новости спорта"
-            buttonStyle={styles.buttonStyle}
-            onPress={() => this.props.navigation.navigate('NewsScreen')}
-        />
+            <Header
+                leftComponent={{icon: 'menu', onPress: this.handleShowLeftMenu}}
+                centerComponent={{text: 'Главная'}}
+                containerStyle={styles.header}
+            />
+            {this.leftMenu()}
+            <Text style={styles.textStyle}>Вы зашли как незарегистрированный пользователь, вы все еще можете</Text>
+            <Button
+                title='Зарегистрироваться'
+                buttonStyle={{...styles.buttonStyle, marginTop: 0}}
+                icon={
+                    <IconAnt
+                        name="profile"
+                        size={15}
+                        color="white"
+                    />
+                }
+                type='solid'
+                onPress={() => this.props.navigation.navigate('RegisterScreen')}
+            />
+            <Text style={styles.textStyle}>Если у вас уже есть аккаунт</Text>
+            <Button
+                title="Войти"
+                buttonStyle={styles.buttonStyle}
+                icon={
+                    <Icon
+                        name="login"
+                        size={15}
+                        color="white"
+                    />
+                }
+                type='solid'
+                onPress={() => this.props.navigation.navigate('LoginScreen')}
+            />
+            <Text style={styles.textStyle}>Контент</Text>
+            <Button
+                title="Новости спорта"
+                buttonStyle={styles.buttonStyle}
+                onPress={() => this.props.navigation.navigate('NewsScreen')}
+            />
         </ImageBackground>
     )
   };
