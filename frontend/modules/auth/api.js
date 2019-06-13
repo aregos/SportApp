@@ -1,4 +1,4 @@
-const url = 'http://10.203.65.126:8000/users';
+const url = 'http://192.168.0.10:8000/users';
 
 export const registerApi = async (email, login, password) => {
     const query = {
@@ -6,7 +6,7 @@ export const registerApi = async (email, login, password) => {
         headers: {'Content-Type': 'application/json', 'accept': 'application/json'},
         body: JSON.stringify({'email': email, 'login': login, 'password': password}),
     };
-       return await fetch(`${url}/register`, query)
+        return await fetch(`${url}/register`, query)
 };
 
 export const loginApi = async (login, password) => {

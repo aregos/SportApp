@@ -14,8 +14,8 @@ import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import IconAnt from 'react-native-vector-icons/AntDesign';
 import IconAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFeather from 'react-native-vector-icons/Feather';
-import {guestModeAction, logoutAction} from "../modules/auth/actions/action";
-import girlMoscow from '../images/girl-moscow.jpg';
+import {guestModeAction, logoutAction, getSettingsList} from "../modules/auth/actions/action";
+import settingsList from '../modules/auth/helpers/settingsList';
 import girlBox from '../images/girl-box.jpg';
 
 import { connect } from 'react-redux';
@@ -26,7 +26,13 @@ class HomeScreen extends React.Component {
         showLeftMenu: false
     };
 
-  leftMenu = () => {
+    componentDidMount() {
+        if (this.props.isLogged) {
+            this.props.getSettingsList(this.props.login);
+        }
+    }
+
+    leftMenu = () => {
       if (this.state.showLeftMenu)
       return (
           <ScrollView
@@ -240,15 +246,17 @@ class HomeScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  login: state.register.login,
-  isLoading: state.register.isFetching,
-  isLogged: state.register.isLogged,
-  isGuestMode: state.register.isGuestMode
+    login: state.register.login,
+    isLoading: state.register.isFetching,
+    isLogged: state.register.isLogged,
+    isGuestMode: state.register.isGuestMode,
+    settingsList: state.register.settingsList
 });
 
 const mapDispatchToProps = dispatch => ({
-  runGuestMode: () => dispatch(guestModeAction()),
-  logout: () => dispatch(logoutAction())
+    runGuestMode: () => dispatch(guestModeAction()),
+    logout: () => dispatch(logoutAction()),
+    getSettingsList: (login) => dispatch(getSettingsList(login))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

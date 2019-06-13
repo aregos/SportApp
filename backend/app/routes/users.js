@@ -7,6 +7,6 @@ router.post('/authenticate', userController.authenticate);
 router.post('/updateUserInfo', userController.updateUserInfo);
 router.post('/getUserInfo', userController.getUserInfo);
 router.post('/updateSettingsList', userController.updateSettingsList);
-router.post('/getSettingsList', userController.getSettingList);
+router.post('/getSettingsList', userController.getSettingsList);
 
 module.exports = router;

@@ -86,25 +86,25 @@ module.exports = {
     },
 
     updateSettingsList: function(req, res, next) {
-        userModel.updateOne({login: req.body.login}, {settingsList: req.body.userSettings}, function(err, result) {
+        userModel.updateOne({login: req.body.login}, {settingsList: req.body.settingsList}, function(err, result) {
             if (err) {
                 res.status(500).json({error: err, message: 'Не найден пользователь или не удалось обновить список настроек'});
                 next(err);
             }
             else {
-                res.status(200).json({settingsList: req.body.userSettings})
+                res.status(200).json({settingsList: req.body.settingsList})
             }
         })
     },
 
-    getSettingList: function(req, res, next) {
+    getSettingsList: function(req, res, next) {
         userModel.findOne({login: req.body.login}, function(err, result) {
             if (err) {
-                res.status(500).json({error: err, message: 'Не удалось получить данные настроек пользователя'});
+                res.status(500).json({error: err, message: 'Не удалось получить данные настроек пользователя, загружаем стандартные'});
                 next(err);
             }
             else {
-                res.status(200).json({settingList: result.settingList})
+                res.status(200).json({settingsList: result.settingsList})
             }
         })
     }

@@ -16,7 +16,13 @@ import {
     UPDATE_FAILURE,
     GETUSERINFO_START,
     GETUSERINFO_SUCCESS,
-    GETUSERINFO_FAILURE
+    GETUSERINFO_FAILURE,
+    GETSETTINGSLIST_START,
+    GETSETTINGSLIST_SUCCESS,
+    GETSETTINGSLIST_FAILURE,
+    UPDATESETTINGSLIST_START,
+    UPDATESETTINGSLIST_SUCCESS,
+    UPDATESETTINGSLIST_FAILURE
 }
 from '../actions/consts.js';
 
@@ -29,10 +35,22 @@ const initialState = {
     gender: null,
     token: null,
     message: '',
+    error: null,
     isLogged: false,
     isGuestMode: false,
     isFetching: false,
-    settingsList: ['trainings', 'coaches', 'news', 'hotels']
+    settingsList: {
+        trainings: true,
+        news: true,
+        teams: false,
+        coaches: true,
+        clubs: false,
+        shops: false,
+        hotels: true,
+        travels: false,
+        insurance: false,
+        medicalServices: false
+    }
 };
 
 export default (state = initialState, action) => {
@@ -147,6 +165,42 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: false
+            };
+        case GETSETTINGSLIST_START:
+            return {
+                ...state,
+                isFetching: true
+            };
+        case GETSETTINGSLIST_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+                settingsList: action.payload.settingsList
+            };
+        case GETSETTINGSLIST_FAILURE:
+            return {
+                ...state,
+                isFetching: false,
+                error: action.payload.error,
+                message: action.payload.message
+            };
+        case UPDATESETTINGSLIST_START:
+            return {
+                ...state,
+                isFetching: true
+            };
+        case UPDATESETTINGSLIST_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+                settingsList: action.payload.settingsList
+            };
+        case UPDATESETTINGSLIST_FAILURE:
+            return {
+                ...state,
+                isFetching: false,
+                error: action.payload.error,
+                message: action.payload.message
             };
         default:
             return state;
