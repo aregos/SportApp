@@ -17,75 +17,59 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import {guestModeAction, logoutAction, getSettingsList} from "../modules/auth/actions/action";
 import settingsList from '../modules/auth/helpers/settingsList';
 import girlBox from '../images/girl-box.jpg';
-
 import { connect } from 'react-redux';
 
 class HomeScreen extends React.Component {
 
     state = {
-        showLeftMenu: false
+        showLeftMenu: false,
+        availableSettings: []
     };
 
+
     componentDidMount() {
-        if (this.props.isLogged) {
-            this.props.getSettingsList(this.props.login);
+        let availableSettings = [];
+        if (this.props.isLogged === true) {
+            this.props.getSettingsList(this.props.login)
+                .then(res => {
+                    for (let key in res) {
+                        if (res[key] === true) {
+                            availableSettings.push(key)
+                        }
+                    }
+                });
+            this.setState({availableSettings});
+        }
+        else {
+            for (let key in this.props.settingsList) {
+                if (this.props.settingsList[key] === true) {
+                    availableSettings.push(key)
+                }
+            }
         }
     }
 
     leftMenu = () => {
-      if (this.state.showLeftMenu) {
-          const availableSettings = this.props.settingsList;
-      return (
-          <ScrollView
-              style={styles.leftMenu}
-          >
-              <Button
-                  title='Друзья'
-                  buttonStyle={styles.leftMenuButton}
-              />
-              <Button
-                  title='Сообщения'
-                  buttonStyle={styles.leftMenuButton}
-              />
-              <Button
-                  title='Тренировки'
-                  buttonStyle={styles.leftMenuButton}
-              />
-              <Button
-                  title='Команды'
-                  buttonStyle={styles.leftMenuButton}
-              />
-              <Button
-                  title='Новости'
-                  buttonStyle={styles.leftMenuButton}
-                  onPress={() => this.props.navigation.navigate('NewsScreen')}
-              />
-              <Button
-                  title='Тренеры'
-                  buttonStyle={styles.leftMenuButton}
-              />
-              <Button
-                  title='Клубы/секции'
-                  buttonStyle={styles.leftMenuButton}
-              />
-              <Button
-                  title='Мед. услуги'
-                  buttonStyle={styles.leftMenuButton}
-              />
-              <Button
-                  title='Страхование'
-                  buttonStyle={styles.leftMenuButton}
-              />
-              <Button
-                  title='Настройки'
-                  buttonStyle={styles.leftMenuButton}
-                  onPress={() => this.props.navigation.navigate('SettingsScreen')}
-              />
-          </ScrollView>
-      );
-  }
-      else return null;
-  };
+
+        if (this.state.showLeftMenu) {
+                return (
+                    <ScrollView
+                        style={styles.leftMenu}
+                    >
+                        {this.state.availableSettings.map((item, index) => {
+                            return (
+                                <Button
+                                    key={index}
+                                    buttonStyle={styles.leftMenuButton}
+                                    title={settingsList[item].title}
+                                    onPress={() => this.props.navigation.navigate(`${settingsList[item].navigate}`)}
+                                />
+                            )
+                        })}
+                    </ScrollView>
+                );
+            } else return null;
+        };
 
   handleShowLeftMenu = () => {
       this.setState({showLeftMenu: !this.state.showLeftMenu})
@@ -190,7 +174,7 @@ class HomeScreen extends React.Component {
   };
 
   render() {
-    if (this.props.isLoading) return (
+      if (this.props.isLoading) return (
         <View>
           <Text>Загрузка...</Text>
         </View>

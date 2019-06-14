@@ -98,14 +98,19 @@ module.exports = {
     },
 
     getSettingsList: function(req, res, next) {
-        userModel.findOne({login: req.body.login}, function(err, result) {
-            if (err) {
-                res.status(500).json({error: err, message: 'Не удалось получить данные настроек пользователя, загружаем стандартные'});
-                next(err);
-            }
-            else {
-                res.status(200).json({settingsList: result.settingsList})
-            }
-        })
+        if (req.body.login) {
+            userModel.findOne({login: req.body.login}, function (err, result) {
+                if (err) {
+                    res.status(500).json({
+                        error: err,
+                        message: 'Не удалось получить данные настроек пользователя, загружаем стандартные'
+                    });
+                    next(err);
+                } else {
+                    res.status(200).json({settingsList: result.settingsList})
+                }
+            })
+        }
+        else res.status(500).json({message: 'Не удалось получить логин пользователя'})
     }
 };
