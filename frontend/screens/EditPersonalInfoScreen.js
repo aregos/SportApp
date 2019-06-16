@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import { connect } from 'react-redux';
 import {getUserInfoAction, updateUserInfoAction} from '../modules/auth/actions/action';
 import {
@@ -98,6 +98,12 @@ class EditPersonalInfoScreen extends React.Component {
                     title='Изменить'
                     onPress={this.update}
                 />
+                <Text>Также вы можете настроить пункты, показываемые в боковом меню</Text>
+                <Button
+                    buttonStyle = {styles.buttonStyle}
+                    onPress = {() => this.props.navigation.navigate('SettingsScreen')}
+                    title='Настроить'
+                />
             </View>
         )
     }
@@ -118,3 +124,16 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditPersonalInfoScreen)
+
+const styles = StyleSheet.create({
+    buttonStyle: {
+        marginVertical: 10,
+        padding: 20,
+        width: 300,
+        height: 50,
+        backgroundColor: '#50b593',
+        borderWidth: 1,
+        borderColor: 'white',
+        opacity: 0.8
+    }
+});

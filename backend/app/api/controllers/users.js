@@ -92,7 +92,8 @@ module.exports = {
                 next(err);
             }
             else {
-                res.status(200).json({settingsList: req.body.settingsList})
+                res.status(200).json({settingsList: req.body.settingsList});
+                next(result);
             }
         })
     },

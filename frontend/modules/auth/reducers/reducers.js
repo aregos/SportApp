@@ -88,7 +88,8 @@ export default (state = initialState, action) => {
                 token: action.payload.data.token,
                 message: action.payload.message,
                 isFetching: false,
-                isLogged: true
+                isLogged: true,
+                isGuestMode: false
             };
         case LOGIN_FAILURE:
             return {

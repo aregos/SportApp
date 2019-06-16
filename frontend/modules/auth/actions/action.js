@@ -26,8 +26,7 @@ import {
 } from './consts.js';
 import {registerApi, loginApi, updateApi, getUserInfoApi, updateSettingsListApi, getSettingsListApi} from '../api.js';
 
-export const registerAction = (email, login, password) => {
-    return async (dispatch) => {
+export const registerAction = (email, login, password) => async (dispatch) => {
             dispatch({type: REGISTER_START});
             registerApi(email,login,password)
                 .then(response => {
@@ -37,11 +36,9 @@ export const registerAction = (email, login, password) => {
                 .catch(error => {
                     dispatch({type: REGISTER_FAILURE, payload: error})
                 });
-    }
 };
 
-export const loginAction = (login, password) => {
-    return async (dispatch) => {
+export const loginAction = (login, password) => async (dispatch) => {
             dispatch({type: LOGIN_START});
             loginApi(login, password)
                 .then(response => {
@@ -51,7 +48,6 @@ export const loginAction = (login, password) => {
                 .catch(error => {
                     dispatch({type : LOGIN_FAILURE, payload: error})
                 })
-    }
 };
 
 export const logoutAction = () => {
@@ -68,8 +64,7 @@ export const guestModeAction = () => {
     }
 };
 
-export const updateUserInfoAction = (login, props) => {
-    return dispatch => {
+export const updateUserInfoAction = (login, props) => dispatch => {
         dispatch({type: UPDATE_START});
         updateApi(login, props)
             .then(res => res.json())
@@ -81,11 +76,9 @@ export const updateUserInfoAction = (login, props) => {
                 dispatch({type: UPDATE_SUCCESS, payload: res})
             })
             .catch(err => dispatch({type: UPDATE_FAILURE, payload: err}))
-    };
 };
 
-export const getUserInfoAction = login => {
-    return dispatch => {
+export const getUserInfoAction = login => dispatch => {
         dispatch({type: GETUSERINFO_START});
         getUserInfoApi(login)
             .then(res => res.json())
@@ -100,11 +93,9 @@ export const getUserInfoAction = login => {
                 dispatch({type: GETUSERINFO_SUCCESS, payload: res})
             })
             .catch(err => dispatch({type: GETUSERINFO_FAILURE, payload: err}))
-    }
 };
 
-export const updateSettingsList = (login, settingList) => {
-    return dispatch => {
+export const updateSettingsList = (login, settingList) => dispatch => {
         dispatch({type: UPDATESETTINGSLIST_START});
         updateSettingsListApi(login, settingList)
             .then(res => res.json())
@@ -112,17 +103,21 @@ export const updateSettingsList = (login, settingList) => {
                 dispatch({type: UPDATESETTINGSLIST_SUCCESS, payload: res})
             })
             .catch(err => dispatch({type: UPDATESETTINGSLIST_FAILURE, payload: err}))
-    }
 };
 
-export const getSettingsList = login => {
-    return dispatch => {
+export const getSettingsList = login => dispatch => {
+    return new Promise((resolve, reject) => {
         dispatch({type: GETSETTINGSLIST_START});
         getSettingsListApi(login)
             .then(res => res.json())
             .then(res => {
-                dispatch({type: GETSETTINGSLIST_SUCCESS, payload: res})
+                dispatch({type: GETSETTINGSLIST_SUCCESS, payload: res});
+                resolve(res);
             })
-            .catch(err => dispatch({type: GETSETTINGSLIST_FAILURE, payload: err}))
-    }
+            .catch(err => {
+                dispatch({type: GETSETTINGSLIST_FAILURE, payload: err});
+                reject(err);
+            })
+    })
+        
 };

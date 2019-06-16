@@ -18,6 +18,7 @@ import {guestModeAction, logoutAction, getSettingsList} from "../modules/auth/ac
 import settingsList from '../modules/auth/helpers/settingsList';
 import girlBox from '../images/girl-box.jpg';
 import { connect } from 'react-redux';
+import * as _ from 'lodash';
 
 class HomeScreen extends React.Component {
 
@@ -26,31 +27,56 @@ class HomeScreen extends React.Component {
         availableSettings: []
     };
 
+    getTrueSettingsToArray = allSettings => {
+        let array = [];
+        for (let key in allSettings) {
+            if (allSettings[key] === true) {
+                array.push(key);
+            }
+        }
+        return array;
+    };
 
-    componentDidMount() {
-        let availableSettings = [];
-        if (this.props.isLogged === true) {
+    componentWillReceiveProps(nextProps) {
+        {/*Если был не залогинен, потом залогинился*/}
+        if (this.props.isLogged === false && nextProps.isLogged === true && nextProps.login) {
+            let availableSettings = [];
+            this.props.getSettingsList(nextProps.login)
+                    .then(() => {
+                        for (let key in this.props.settingsList) {
+                            if (this.props.settingsList[key] === true) {
+                                availableSettings.push(key)
+                            }
+                        }
+                        this.setState({availableSettings});
+                    });
+            }
+        else if (nextProps.settingsList && !_.isEqual(this.state.availableSettings, this.getTrueSettingsToArray(nextProps.settingsList))) {
+            {/*Если апдейтнул настройки и надо обновить их на главной*/}
+            let availableSettings = [];
             this.props.getSettingsList(this.props.login)
-                .then(res => {
-                    for (let key in res) {
-                        if (res[key] === true) {
+                .then(() => {
+                    for (let key in this.props.settingsList) {
+                        if (this.props.settingsList[key] === true) {
                             availableSettings.push(key)
                         }
                     }
+                    this.setState({availableSettings});
                 });
-            this.setState({availableSettings});
         }
-        else {
+        }
+
+    componentDidMount() {
+        let availableSettings = [];
             for (let key in this.props.settingsList) {
                 if (this.props.settingsList[key] === true) {
-                    availableSettings.push(key)
+                    availableSettings.push(key);
                 }
             }
-        }
+            this.setState({availableSettings});
     }
 
     leftMenu = () => {
-
         if (this.state.showLeftMenu) {
                 return (
                     <ScrollView
