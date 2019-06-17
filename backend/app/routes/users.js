@@ -8,5 +8,6 @@ router.post('/updateUserInfo', userController.updateUserInfo);
 router.post('/getUserInfo', userController.getUserInfo);
 router.post('/updateSettingsList', userController.updateSettingsList);
 router.post('/getSettingsList', userController.getSettingsList);
+router.post('/searchFriends', userController.searchFriends);
 
 module.exports = router;

@@ -14,7 +14,7 @@ const UserSchema = mongoose.Schema(
     email: {
         type: String,
         trim: true,
-        require: true,
+        required: true,
     },
     password: {
         type: String,
@@ -38,6 +38,9 @@ const UserSchema = mongoose.Schema(
     },
     settingsList: {
         type: Object
+    },
+    friends: {
+        type: [this]
     }
     },
 );

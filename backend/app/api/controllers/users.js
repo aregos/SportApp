@@ -100,7 +100,7 @@ module.exports = {
 
     getSettingsList: function(req, res, next) {
         if (req.body.login) {
-            userModel.findOne({login: req.body.login}, function (err, result) {
+            userModel.findOne({login: req.body.login}, function(err, result) {
                 if (err) {
                     res.status(500).json({
                         error: err,
@@ -113,5 +113,20 @@ module.exports = {
             })
         }
         else res.status(500).json({message: 'Не удалось получить логин пользователя'})
+    },
+
+    searchFriends: function(req, res, next) {
+        if (req.body.name) {
+            userModel.find({name: req.body.name}, function(err, result) {
+                if (err) {
+                    res.status(500).json({message: `не найдено пользователей с именем ${req.body.name}`});
+                    next(err)
+                } else {
+                    res.status(200).json({peopleList: result})
+                }
+            })
+        } else {
+            res.status(500).json({message: `не задано имя`})
+        }
     }
 };
