@@ -37,6 +37,7 @@ class HomeScreen extends React.Component {
         return array;
     };
 
+    //TODO оптимизировать, куча ненужных запросов!!!
     componentWillReceiveProps(nextProps) {
         {/*Если был не залогинен, потом залогинился*/}
         if (this.props.isLogged === false && nextProps.isLogged === true && nextProps.login) {

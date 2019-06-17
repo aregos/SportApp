@@ -111,12 +111,10 @@ export const getSettingsList = login => dispatch => {
         getSettingsListApi(login)
             .then(res => res.json())
             .then(res => {
-                dispatch({type: GETSETTINGSLIST_SUCCESS, payload: res});
-                resolve(res);
+                resolve(dispatch({type: GETSETTINGSLIST_SUCCESS, payload: res}));
             })
             .catch(err => {
-                dispatch({type: GETSETTINGSLIST_FAILURE, payload: err});
-                reject(err);
+                reject(dispatch({type: GETSETTINGSLIST_FAILURE, payload: err}));
             })
     })
         
