@@ -1,4 +1,8 @@
 export default {
+'friends': {
+    title: 'Друзья',
+    navigate: 'FriendsScreen'
+},
 'trainings': {
     title: 'Тренировки',
     navigate: '',

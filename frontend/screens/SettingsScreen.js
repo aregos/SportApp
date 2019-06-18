@@ -8,6 +8,7 @@ import {updateSettingsList, getSettingsList} from "../modules/auth/actions/actio
 class SettingsScreen extends React.Component {
 
     state = {
+        friends: false,
         trainings: true,
         news: true,
         teams: false,
@@ -41,6 +42,12 @@ class SettingsScreen extends React.Component {
         return (
             <ScrollView>
                 <Text>Пункты меню</Text>
+                <CheckBox
+                    center
+                    title='Друзья'
+                    checked={this.state.friends}
+                    onPress={() => this.setState({friends: !this.state.friends})}
+                />
                 <CheckBox
                     center
                     title='Тренировки'

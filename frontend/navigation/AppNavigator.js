@@ -7,6 +7,7 @@ import CongratScreen from '../screens/CongratScreen.js';
 import EditPersonalInfoScreen from '../screens/EditPersonalInfoScreen';
 import NewsScreen from '../screens/NewsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import FriendsScreen from '../screens/FriendsScreen';
 
 const stackNavigator = createStackNavigator({
         HomeScreen,
@@ -15,7 +16,8 @@ const stackNavigator = createStackNavigator({
         CongratScreen,
         EditPersonalInfoScreen,
         NewsScreen,
-        SettingsScreen
+        SettingsScreen,
+        FriendsScreen
     },
 {
         initialRouteName: 'HomeScreen'
