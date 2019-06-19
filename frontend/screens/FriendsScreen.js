@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {Text, Button, Input} from "react-native-elements";
+import {Text, Button, Input, SearchBar, ListItem} from "react-native-elements";
 import IconEvil from 'react-native-vector-icons/EvilIcons';
 import {searchFriendsAction} from "../modules/friends/actions/action";
 import {connect} from 'react-redux';
@@ -19,31 +19,48 @@ class FriendsScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <Text>найти больше друзей</Text>
-                <Input
+                <SearchBar
                     placeholder='Поиск'
                     onChangeText={text => this.setState({search: text})}
+                    value={this.state.search}
+                    containerStyle={{width: 400}}
                 />
                 <Button
                     icon={
                         <IconEvil
                             name='search'
                             size={15}
-                            color="white"
+                            color='white'
                         />
                     }
                     buttonStyle={styles.buttonStyle}
                     onPress={this.searchFriends}
                 />
+                {this.props.foundedPeople &&
+                    console.log(this.props.foundedPeople) &&
+                this.props.foundedPeople.map((people, index) => {
+                    return (
+                        <ListItem
+                            key={index}
+                            title={people.name}
+                        />
+                    )
+                })
+                }
             </View>
         )
     }
 }
 
+const mapStateToProps = state => ({
+    foundedPeople: state.friends.foundedPeople
+});
+
 const mapDispatchToProps = dispatch => ({
     searchFriends: (text) => dispatch(searchFriendsAction(text))
 });
 
-export default connect(null, mapDispatchToProps)(FriendsScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(FriendsScreen)
 
 const styles = StyleSheet.create({
     buttonStyle: {

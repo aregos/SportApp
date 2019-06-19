@@ -40,7 +40,7 @@ const initialState = {
     isGuestMode: false,
     isFetching: false,
     settingsList: {
-        friends: false,
+        friends: true,
         trainings: true,
         news: true,
         teams: false,
