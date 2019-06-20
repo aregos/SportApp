@@ -15,7 +15,22 @@ class FriendsScreen extends React.Component {
         this.props.searchFriends(this.state.search);
     };
 
+    foundedPeople = () => {
+        if (this.props.foundedPeople.length > 0) {
+            this.props.foundedPeople.map((item, index) => {
+                return (
+                <ListItem
+                    key={index}
+                    title={item.name}
+                />
+                )
+            })
+        }
+    };
+
     render() {
+        if (this.props.isLoading) return <View><Text>Загрузка...</Text></View>;
+        else
         return (
             <View style={styles.container}>
                 <Text>найти больше друзей</Text>
@@ -36,23 +51,14 @@ class FriendsScreen extends React.Component {
                     buttonStyle={styles.buttonStyle}
                     onPress={this.searchFriends}
                 />
-                {this.props.foundedPeople &&
-                    console.log(this.props.foundedPeople) &&
-                this.props.foundedPeople.map((people, index) => {
-                    return (
-                        <ListItem
-                            key={index}
-                            title={people.name}
-                        />
-                    )
-                })
-                }
+                {this.foundedPeople()}
             </View>
         )
     }
 }
 
 const mapStateToProps = state => ({
+    isLoading: state.friends.isFetching,
     foundedPeople: state.friends.foundedPeople
 });
 
