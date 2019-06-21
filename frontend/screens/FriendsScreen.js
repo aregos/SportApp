@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {Text, Button, Input, SearchBar, ListItem} from "react-native-elements";
+import {Text, Button, SearchBar, ListItem} from "react-native-elements";
 import IconEvil from 'react-native-vector-icons/EvilIcons';
 import {searchFriendsAction} from "../modules/friends/actions/action";
 import {connect} from 'react-redux';
@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 class FriendsScreen extends React.Component {
 
     state = {
-        search: ''
+        search: '',
     };
 
     searchFriends = () => {
@@ -16,15 +16,18 @@ class FriendsScreen extends React.Component {
     };
 
     foundedPeople = () => {
-        if (this.props.foundedPeople.length > 0) {
-            this.props.foundedPeople.map((item, index) => {
-                return (
+        const {foundedPeople} = this.props;
+        if (foundedPeople.length > 0) {
+            return foundedPeople.map((item, index) => (
                 <ListItem
                     key={index}
                     title={item.name}
+                    subTitle={item.surName}
                 />
-                )
-            })
+            )
+            )}
+        else {
+            return null;
         }
     };
 

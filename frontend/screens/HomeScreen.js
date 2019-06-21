@@ -308,6 +308,7 @@ const styles = StyleSheet.create({
   },
   leftMenuButton: {
       backgroundColor: 'black',
+      opacity: 0.8
   },
   buttonStyle: {
       marginVertical: 10,
