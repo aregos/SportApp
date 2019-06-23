@@ -1,8 +1,9 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import {Text, Button, SearchBar, ListItem} from "react-native-elements";
+import {View, ScrollView, StyleSheet} from 'react-native';
+import {Text, Button, SearchBar, ListItem, Input} from "react-native-elements";
 import IconEvil from 'react-native-vector-icons/EvilIcons';
-import {searchFriendsAction} from "../modules/friends/actions/action";
+import {Toast} from '../commonComponents/Toast';
+import {searchFriendsAction, addFriendAction} from "../modules/friends/actions/action";
 import {connect} from 'react-redux';
 
 class FriendsScreen extends React.Component {
@@ -15,16 +16,36 @@ class FriendsScreen extends React.Component {
         this.props.searchFriends(this.state.search);
     };
 
+    addFriend = (id, friendId) => {
+        this.props.addFriend(id, friendId);
+    };
+
     foundedPeople = () => {
         const {foundedPeople} = this.props;
         if (foundedPeople.length > 0) {
-            return foundedPeople.map((item, index) => (
-                <ListItem
-                    key={index}
-                    title={item.name}
-                    subTitle={item.surName}
-                />
-            )
+            return (
+                <ScrollView
+                    contentContainerStyle={styles.friendsList}
+                >
+                    {foundedPeople.map((item, index) => (
+                        <ListItem
+                            key={index}
+                            title={item.name}
+                            subTitle={item.surName}
+                            rightElement={
+                                //проверяем, чтобы пользователь был залогинен и не мог добавить сам себя
+                                this.props.id && this.props.id !== item.id ?
+                                <Button
+                                    title='Добавить'
+                                    onPress={() => this.props.addFriend(this.props.id, item.id)}
+                                    disabled={this.props.isLoadingAddFriend}
+                                />
+                                : null
+                            }
+                        />
+                    )
+                )}
+                </ScrollView>
             )}
         else {
             return null;
@@ -32,12 +53,14 @@ class FriendsScreen extends React.Component {
     };
 
     render() {
+
         if (this.props.isLoading) return <View><Text>Загрузка...</Text></View>;
         else
         return (
+            <View>
             <View style={styles.container}>
                 <Text>найти больше друзей</Text>
-                <SearchBar
+                <Input
                     placeholder='Поиск'
                     onChangeText={text => this.setState({search: text})}
                     value={this.state.search}
@@ -54,19 +77,28 @@ class FriendsScreen extends React.Component {
                     buttonStyle={styles.buttonStyle}
                     onPress={this.searchFriends}
                 />
-                {this.foundedPeople()}
+            </View>
+        {this.foundedPeople()}
+        <Toast
+            visible={!!this.props.message}
+            message={this.props.message}
+        />
             </View>
         )
     }
 }
 
 const mapStateToProps = state => ({
+    id: state.register.id,
     isLoading: state.friends.isFetching,
-    foundedPeople: state.friends.foundedPeople
+    isLoadingAddFriend: state.friends.isFetchingAddFriend,
+    foundedPeople: state.friends.foundedPeople,
+    message: state.friends.message
 });
 
 const mapDispatchToProps = dispatch => ({
-    searchFriends: (text) => dispatch(searchFriendsAction(text))
+    searchFriends: (text) => dispatch(searchFriendsAction(text)),
+    addFriend: (id, friendId) => dispatch(addFriendAction(id, friendId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FriendsScreen)
@@ -86,4 +118,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    friendsList: {
+        borderWidth: 2
+    }
 });

@@ -122,11 +122,58 @@ module.exports = {
                     res.status(500).json({message: `не найдено пользователей с именем ${req.body.name}`});
                     next(err)
                 } else {
-                    res.status(200).json({peopleList: result})
+                    //возвращаем id, name, surName найденных пользователей
+                    let peopleList = [...result].map(item => {
+                        return {
+                            id: item._id,
+                            name : item.name,
+                            surName: item.surName
+                        }
+                    });
+                    res.status(200).json({peopleList})
                 }
             })
         } else {
             res.status(500).json({message: `не задано имя`})
         }
+    },
+
+    addFriend: function(req, res, next) {
+        userModel.findById(req.body.id, function(err, result) {
+            if (err) {
+                res.status(500).json({error: err, message: 'Не удалось найти профиль'})
+            }
+            else {
+                const friendsOutRequests = [...result.friendsOutRequests];
+                if (friendsOutRequests.includes(req.body.friendId)) {
+                    res.status(500).json({message: 'Вы уже отправили заявку этому пользователю'})
+                } else {
+                    userModel.findOneAndUpdate({_id: req.body.id}, {friendsOutRequests: req.body.friendId}, function(err, result) {
+                        if (err) {
+                            res.status(500).json({error: err, message: 'Произошла ошибка при попытке добавления в друзья'})
+                        } else {
+                            userModel.findOneAndUpdate({_id: req.body.friendId}, {friendsInRequests: req.body.id}, function(err, result) {
+                                if (err) {
+                                    res.status(500).json({err, message: 'Произошла ошибка при попытке добавления в друзья'})
+                                } else {
+                                    res.status(200).json({message: 'Заявка на добавление в друзья отправлена'})
+                                }
+                            });
+                        }
+                    })
+                }
+            }
+        }
+        )
+    },
+
+    getFriendsRequests: function(req, res, next) {
+        userModel.findById(req.body.id, function(err, result) {
+            if (err) {
+                res.status(500).json({error: err, message: 'Не найден пользователь'});
+            } else {
+                res.status(200).json({friendsRequests: result.friendsInRequests});
+            }
+        })
     }
 };

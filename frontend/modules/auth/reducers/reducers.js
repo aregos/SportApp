@@ -27,6 +27,7 @@ import {
 from '../actions/consts.js';
 
 const initialState = {
+    id: '',
     email: '',
     login: '',
     name: '',
@@ -84,6 +85,7 @@ export default (state = initialState, action) => {
         case LOGIN_SUCCESS:
             return {
                 ...state,
+                id: action.payload.data.user._id,
                 email: action.payload.data.user.email,
                 login: action.payload.data.user.login,
                 token: action.payload.data.token,

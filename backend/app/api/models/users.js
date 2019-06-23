@@ -41,6 +41,12 @@ const UserSchema = mongoose.Schema(
     },
     friends: {
         type: [this]
+    },
+    friendsOutRequests: {
+        type: [String]
+    },
+    friendsInRequests: {
+        type: [String]
     }
     },
 );

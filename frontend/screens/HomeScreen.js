@@ -15,6 +15,7 @@ import IconAnt from 'react-native-vector-icons/AntDesign';
 import IconAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFeather from 'react-native-vector-icons/Feather';
 import {guestModeAction, logoutAction, getSettingsList} from "../modules/auth/actions/action";
+import {getFriendsRequestsAction} from '../modules/friends/actions/action';
 import settingsList from '../modules/auth/helpers/settingsList';
 import girlBox from '../images/girl-box.jpg';
 import { connect } from 'react-redux';
@@ -24,7 +25,8 @@ class HomeScreen extends React.Component {
 
     state = {
         showLeftMenu: false,
-        availableSettings: []
+        availableSettings: [],
+        friendsRequestsNumber: 0
     };
 
     getTrueSettingsToArray = allSettings => {
@@ -74,6 +76,10 @@ class HomeScreen extends React.Component {
                     availableSettings.push(key);
                 }
             }
+            if (this.props.id) {
+                this.props.getFriendsRequests(this.props.id)
+                    .then(() => this.setState({friendsRequestsNumber: this.props.friendsRequests.length}))
+            }
             this.setState({availableSettings});
     }
 
@@ -98,10 +104,12 @@ class HomeScreen extends React.Component {
             } else return null;
         };
 
+  //функция переключения показа левого меню
   handleShowLeftMenu = () => {
       this.setState({showLeftMenu: !this.state.showLeftMenu})
   };
 
+  //гостевой экран
   mainGuestScreen = () => {
     return (
         <ImageBackground
@@ -152,6 +160,7 @@ class HomeScreen extends React.Component {
     )
   };
 
+  //экран залогиненного пользователя
   mainLoggedScreen = () => {
       return (
           <ImageBackground
@@ -259,17 +268,20 @@ class HomeScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    id: state.register.id,
     login: state.register.login,
     isLoading: state.register.isFetching,
     isLogged: state.register.isLogged,
     isGuestMode: state.register.isGuestMode,
-    settingsList: state.register.settingsList
+    settingsList: state.register.settingsList,
+    friendsRequests: state.friends.friendsInRequests
 });
 
 const mapDispatchToProps = dispatch => ({
     runGuestMode: () => dispatch(guestModeAction()),
     logout: () => dispatch(logoutAction()),
-    getSettingsList: (login) => dispatch(getSettingsList(login))
+    getSettingsList: (login) => dispatch(getSettingsList(login)),
+    getFriendsRequests: id => dispatch(getFriendsRequestsAction(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

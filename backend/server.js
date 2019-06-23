@@ -23,5 +23,3 @@ app.listen(port, () => console.log('app is running on port ' + port));
 
 mongoose.connect(dbUrl.url, {dbName: 'data'}).then(() => console.log('success'), err => console.log(err));
 mongoose.Promise = global.Promise;
-let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
