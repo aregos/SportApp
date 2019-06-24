@@ -10,6 +10,6 @@ router.post('/updateSettingsList', userController.updateSettingsList);
 router.post('/getSettingsList', userController.getSettingsList);
 router.post('/searchFriends', userController.searchFriends);
 router.post('/addFriend', userController.addFriend);
-router.post('/getFriendsRequests', userController.getFriendsRequests);
+router.post('/getFriendsInRequests', userController.getFriendsInRequests);
 
 module.exports = router;

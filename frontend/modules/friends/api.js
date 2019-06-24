@@ -18,11 +18,11 @@ export const addFriendApi = async (id, friendId) => {
     return await fetch(`${url}/addFriend`, query);
 };
 
-export const getFriendsRequestsApi = async id => {
+export const getFriendsInRequestsApi = async id => {
     const query = {
         method: 'POST',
         headers: {'Content-Type': 'application/json', 'accept': 'application/json'},
         body: JSON.stringify({id})
     };
-    return await fetch(`${url}/getFriendsRequests`, query);
+    return await fetch(`${url}/getFriendsInRequests`, query);
 }

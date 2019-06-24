@@ -15,7 +15,7 @@ import IconAnt from 'react-native-vector-icons/AntDesign';
 import IconAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFeather from 'react-native-vector-icons/Feather';
 import {guestModeAction, logoutAction, getSettingsList} from "../modules/auth/actions/action";
-import {getFriendsRequestsAction} from '../modules/friends/actions/action';
+import {getFriendsInRequestsAction} from '../modules/friends/actions/action';
 import settingsList from '../modules/auth/helpers/settingsList';
 import girlBox from '../images/girl-box.jpg';
 import { connect } from 'react-redux';
@@ -77,7 +77,7 @@ class HomeScreen extends React.Component {
                 }
             }
             if (this.props.id) {
-                this.props.getFriendsRequests(this.props.id)
+                this.props.getFriendsInRequests(this.props.id)
                     .then(() => this.setState({friendsRequestsNumber: this.props.friendsRequests.length}))
             }
             this.setState({availableSettings});
@@ -281,7 +281,7 @@ const mapDispatchToProps = dispatch => ({
     runGuestMode: () => dispatch(guestModeAction()),
     logout: () => dispatch(logoutAction()),
     getSettingsList: (login) => dispatch(getSettingsList(login)),
-    getFriendsRequests: id => dispatch(getFriendsRequestsAction(id))
+    getFriendsInRequests: id => dispatch(getFriendsInRequestsAction(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

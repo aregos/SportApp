@@ -9,7 +9,7 @@ import {
     GET_FRIENDS_REQUESTS_SUCCESS,
     GET_FRIENDS_REQUESTS_FAILURE
 } from "./consts";
-import {searchFriendsApi, addFriendApi, getFriendsRequestsApi} from "../api";
+import {searchFriendsApi, addFriendApi, getFriendsInRequestsApi} from "../api";
 
 export const searchFriendsAction = name => dispatch => {
     dispatch({type: SEARCH_FRIENDS_START});
@@ -35,7 +35,7 @@ export const addFriendAction = (id, friendId) => dispatch => {
         })
 };
 
-export const getFriendsRequestsAction = id => dispatch => {
+export const getFriendsInRequestsAction = id => dispatch => {
     dispatch({type: GET_FRIENDS_REQUESTS_START});
     getFriendsRequestsApi(id)
         .then(res => res.json())

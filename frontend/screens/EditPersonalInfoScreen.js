@@ -53,9 +53,7 @@ class EditPersonalInfoScreen extends React.Component {
             );
         else return (
             <View>
-                <BackLink
-                    onPress={() => this.props.navigation.goBack()}
-                />
+                <BackLink/>
                 <Input
                     placeholder='Имя'
                     value={this.state.name}

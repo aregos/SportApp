@@ -167,7 +167,7 @@ module.exports = {
         )
     },
 
-    getFriendsRequests: function(req, res, next) {
+    getFriendsInRequests: function(req, res, next) {
         userModel.findById(req.body.id, function(err, result) {
             if (err) {
                 res.status(500).json({error: err, message: 'Не найден пользователь'});
