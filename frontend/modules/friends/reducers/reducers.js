@@ -2,9 +2,12 @@ import {
     SEARCH_FRIENDS_START,
     SEARCH_FRIENDS_SUCCESS,
     SEARCH_FRIENDS_FAILURE,
-    ADD_FRIEND_START,
-    ADD_FRIEND_SUCCESS,
-    ADD_FRIEND_FAILURE
+    SEND_FRIEND_REQUEST_START,
+    SEND_FRIEND_REQUEST_SUCCESS,
+    SEND_FRIEND_REQUEST_FAILURE,
+    GET_FRIENDS_REQUESTS_START,
+    GET_FRIENDS_REQUESTS_SUCCESS,
+    GET_FRIENDS_REQUESTS_FAILURE
 } from "../actions/consts";
 
 const initialState = {
@@ -34,24 +37,41 @@ export default (state = initialState, action) => {
                 isFetching: false,
                 message: action.payload.message
             };
-        case ADD_FRIEND_START:
+        case SEND_FRIEND_REQUEST_START:
             return {
                 ...state,
                 isFetchingAddFriend: true,
             };
-        case ADD_FRIEND_SUCCESS:
+        case SEND_FRIEND_REQUEST_SUCCESS:
             return {
                 ...state,
                 isFetchingAddFriend: false,
                 friendsInRequests: action.payload.friendsRequests,
                 message: action.payload.message
             };
-        case ADD_FRIEND_FAILURE:
+        case SEND_FRIEND_REQUEST_FAILURE:
             return {
                 ...state,
                 isFetchingAddFriend: false,
                 message: action.payload.message
             };
+        case GET_FRIENDS_REQUESTS_START:
+            return {
+                ...state,
+                isFetching: true,
+            };
+        case GET_FRIENDS_REQUESTS_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+                friendsInRequests: action.payload.friendsRequests
+            };
+        case GET_FRIENDS_REQUESTS_FAILURE:
+            return {
+                ...state,
+                isFetching: false,
+                message: action.payload.message
+            }
         default:
             return state
     }

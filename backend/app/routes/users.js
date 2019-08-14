@@ -9,7 +9,8 @@ router.post('/getUserInfo', userController.getUserInfo);
 router.post('/updateSettingsList', userController.updateSettingsList);
 router.post('/getSettingsList', userController.getSettingsList);
 router.post('/searchFriends', userController.searchFriends);
-router.post('/addFriend', userController.addFriend);
+router.post('/sendFriendRequest', userController.sendFriendRequest);
 router.post('/getFriendsInRequests', userController.getFriendsInRequests);
+router.post('/acceptFriendRequest', userController.acceptFriendRequest);
 
 module.exports = router;

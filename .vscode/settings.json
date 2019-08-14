@@ -1,0 +1,20 @@
+{
+    "editor.formatOnPaste": true,
+    "editor.trimAutoWhitespace": true,
+    "editor.fontFamily": "'Fira Code'",
+    "editor.fontWeight": "600",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 14,
+    "editor.formatOnSave": true,
+    "emmet.syntaxProfiles": {
+        "javascript": "jsx"
+    },
+    "javascript.validate.enable": true,
+    "git.enableSmartCommit": true,
+    "files.trimTrailingWhitespace": true,
+    "editor.tabSize": 2,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "workbench.sideBar.location": "right",
+    "explorer.confirmDelete": false,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+}

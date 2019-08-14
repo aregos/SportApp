@@ -2,8 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="49637a5e-2e7d-464c-a59d-710bcab3296b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../backend/app/api/controllers/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app/api/controllers/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/app/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/app/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app/routes/users.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commonComponents/BackLink.js" beforeDir="false" afterPath="$PROJECT_DIR$/commonComponents/BackLink.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/friends/actions/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/friends/actions/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/friends/actions/consts.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/friends/actions/consts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/friends/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/friends/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/EditPersonalInfoScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/EditPersonalInfoScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/FriendsScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/FriendsScreen.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screens/HomeScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/HomeScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/LoginScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/LoginScreen.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -66,7 +76,7 @@
     <option name="totallyTimeSpent" value="62000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="1" weight="0.21917808" />

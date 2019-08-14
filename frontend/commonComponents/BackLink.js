@@ -1,8 +1,6 @@
 import React from 'react';
 import {withNavigation} from 'react-navigation';
-import {
-    Button
-} from 'react-native-elements';
+import {Button} from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 class BackLink extends React.Component {

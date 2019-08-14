@@ -4,8 +4,7 @@ const saltRounds = 10;
 
 //Define a schema
 
-const UserSchema = mongoose.Schema(
-    {
+const UserSchema = mongoose.Schema({
     login: {
         type: String,
         trim: true,
@@ -33,9 +32,11 @@ const UserSchema = mongoose.Schema(
         type: Date,
         trim: true
     },
+    //0 - male, 1 - female
     gender: {
         type: Boolean
     },
+    //list with activated user' settings
     settingsList: {
         type: Object
     },
@@ -48,13 +49,19 @@ const UserSchema = mongoose.Schema(
     friendsInRequests: {
         type: [String]
     }
-    },
-);
+});
 
 //hash user password before saving to database
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function (next) {
     this.password = bcrypt.hashSync(this.password, saltRounds);
     next();
 });
 
-module.exports = mongoose.model('User', UserSchema,'users');
+//TODO test in more cases(adding friend)
+UserSchema.pre('update', function (next) {
+    if (next.friendId) {
+        this.friends.push(next.friendId);
+    }
+})
+
+module.exports = mongoose.model('User', UserSchema, 'users');

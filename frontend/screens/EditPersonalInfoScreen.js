@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import {getUserInfoAction, updateUserInfoAction} from '../modules/auth/actions/action';
+import { getUserInfoAction, updateUserInfoAction } from '../modules/auth/actions/action';
 import {
     Button,
     ButtonGroup,
@@ -9,7 +9,6 @@ import {
     Text
 } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker'
-import BackLink from '../commonComponents/BackLink';
 
 class EditPersonalInfoScreen extends React.Component {
     state = {
@@ -23,46 +22,45 @@ class EditPersonalInfoScreen extends React.Component {
         this.props.getUserInfo(this.props.login)
     };
 
-    componentWillReceiveProps(nextProps, nextContext) {
+    componentWillReceiveProps(nextProps) {
         let changedProps = {};
         for (let key in nextProps) {
             if (this.state.hasOwnProperty(key) && nextProps[key] !== this.state[key]) {
-                 changedProps[key] = nextProps[key];
+                changedProps[key] = nextProps[key];
             }
         }
-        this.setState({...changedProps})
+        this.setState({ ...changedProps })
     };
 
     update = () => {
-        const updatedInfo = {...this.state};
+        const updatedInfo = { ...this.state };
         this.props.updateUserInfo(this.props.login, updatedInfo);
     };
 
     updateGender = (gender) => {
-        this.setState({gender});
+        this.setState({ gender });
     };
 
     render() {
 
         const genderButtons = ['Мужской', 'Женский'];
 
-            if (this.props.isLoading) return (
-                <View>
-                    <Text>Загрузка...</Text>
-                </View>
-            );
+        if (this.props.isLoading) return (
+            <View>
+                <Text>Загрузка...</Text>
+            </View>
+        );
         else return (
             <View>
-                <BackLink/>
                 <Input
                     placeholder='Имя'
                     value={this.state.name}
-                    onChangeText={ text => this.setState({name: text})}
+                    onChangeText={text => this.setState({ name: text })}
                 />
                 <Input
                     placeholder='Фамилия'
                     value={this.state.surName}
-                    onChangeText={ text => this.setState({surName: text})}
+                    onChangeText={text => this.setState({ surName: text })}
                 />
                 <ButtonGroup
                     buttons={genderButtons}
@@ -70,7 +68,7 @@ class EditPersonalInfoScreen extends React.Component {
                     selectedIndex={this.state.gender}
                 />
                 <DatePicker
-                    style={{width: 200}}
+                    style={{ width: 200 }}
                     date={this.state.birthDate}
                     mode="date"
                     placeholder="Выбрать дату"
@@ -90,7 +88,7 @@ class EditPersonalInfoScreen extends React.Component {
                             marginLeft: 36
                         }
                     }}
-                    onDateChange={(date) => {this.setState({birthDate: date})}}
+                    onDateChange={(date) => { this.setState({ birthDate: date }) }}
                 />
                 <Button
                     title='Изменить'
@@ -98,8 +96,8 @@ class EditPersonalInfoScreen extends React.Component {
                 />
                 <Text>Также вы можете настроить пункты, показываемые в боковом меню</Text>
                 <Button
-                    buttonStyle = {styles.buttonStyle}
-                    onPress = {() => this.props.navigation.navigate('SettingsScreen')}
+                    buttonStyle={styles.buttonStyle}
+                    onPress={() => this.props.navigation.navigate('SettingsScreen')}
                     title='Настроить'
                 />
             </View>

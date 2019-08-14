@@ -9,12 +9,19 @@ class LoginScreen extends React.Component {
 
     state = {
         login: '',
-        password: ''
+        password: '',
+        error: ''
     };
 
     componentWillReceiveProps(nextProps, nextContext) {
-        if (nextProps.isLogged === true) {
+        if (nextProps.isLogged) {
             this.props.navigation.navigate('CongratScreen');
+        }
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        if (this.state.error && ((nextState.login.length !== this.state.login) || (nextState.password.length !== this.state.password.length))) {
+            this.setState({error: ''});
         }
     }
 
