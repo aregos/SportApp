@@ -33,17 +33,17 @@ class FriendsScreen extends React.Component {
                 <ScrollView
                     contentContainerStyle={styles.friendsList}
                 >
-                    {foundedPeople.map((item, index) => (
+                    {foundedPeople.map((man, index) => (
                         <ListItem
                             key={index}
-                            title={item.name}
-                            subTitle={item.surName}
+                            title={man.name}
+                            subTitle={man.surName}
                             rightElement={
                                 //проверяем, чтобы пользователь был залогинен и не мог добавить сам себя
-                                this.props.id && this.props.id !== item.id ?
+                                this.props.id && this.props.id !== man.id ?
                                     <Button
                                         title='Добавить'
-                                        onPress={() => this.handleSendFriendRequest(this.props.id, item.id)}
+                                        onPress={() => this.handleSendFriendRequest(this.props.id, man.id)}
                                         disabled={this.props.isLoadingAddFriend}
                                     />
                                     : null

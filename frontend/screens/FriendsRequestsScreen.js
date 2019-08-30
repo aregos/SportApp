@@ -7,7 +7,7 @@ import { getFriendsInRequestsAction, acceptFriendRequestAction } from '../module
 class FriendsRequestsScreen extends React.Component {
 
   componentDidMount() {
-    willFocusListener = this.props.navigation.addListener('willFocus', () => {
+    const willFocusListener = this.props.navigation.addListener('willFocus', () => {
       if (this.props.id) {
         this.props.getFriendsRequests(this.props.id);
       }
@@ -16,7 +16,7 @@ class FriendsRequestsScreen extends React.Component {
 
   handleAcceptFriendRequest = (id, friendId) => {
     this.props.acceptFriendRequest(id, friendId);
-  }
+  };
 
   render() {
     if (this.props.isLoading) {

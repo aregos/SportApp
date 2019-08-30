@@ -41,7 +41,10 @@ const UserSchema = mongoose.Schema({
         type: Object
     },
     friends: {
-        type: [this]
+        type: [{
+            id: String
+        }],
+        required: true
     },
     friendsOutRequests: {
         type: [String]
@@ -56,12 +59,5 @@ UserSchema.pre('save', function (next) {
     this.password = bcrypt.hashSync(this.password, saltRounds);
     next();
 });
-
-//TODO test in more cases(adding friend)
-UserSchema.pre('update', function (next) {
-    if (next.friendId) {
-        this.friends.push(next.friendId);
-    }
-})
 
 module.exports = mongoose.model('User', UserSchema, 'users');

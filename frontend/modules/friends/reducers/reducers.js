@@ -7,7 +7,10 @@ import {
     SEND_FRIEND_REQUEST_FAILURE,
     GET_FRIENDS_REQUESTS_START,
     GET_FRIENDS_REQUESTS_SUCCESS,
-    GET_FRIENDS_REQUESTS_FAILURE
+    GET_FRIENDS_REQUESTS_FAILURE,
+    ACCEPT_FRIEND_REQUEST_START,
+    ACCEPT_FRIEND_REQUEST_SUCCESS,
+    ACCEPT_FRIEND_REQUEST_FAILURE
 } from "../actions/consts";
 
 const initialState = {
@@ -71,7 +74,23 @@ export default (state = initialState, action) => {
                 ...state,
                 isFetching: false,
                 message: action.payload.message
-            }
+            };
+        case ACCEPT_FRIEND_REQUEST_START:
+            return {
+                ...state,
+                isFetching: true
+            };
+        case ACCEPT_FRIEND_REQUEST_SUCCESS:
+            return {
+                ...state,
+                isFetching: false
+            };
+        case ACCEPT_FRIEND_REQUEST_FAILURE:
+            return {
+                ...state,
+                isFetching: false,
+                message: action.payload.message
+            };
         default:
             return state
     }

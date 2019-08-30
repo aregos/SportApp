@@ -141,7 +141,8 @@ module.exports = {
     sendFriendRequest: function (req, res, next) {
         userModel.findById(req.body.id, function (err, result) {
             if (err) {
-                res.status(500).json({ error: err, message: 'Не удалось найти профиль' })
+                res.status(500).json({ error: err, message: 'Не удалось найти профиль' });
+                next(err);
             }
             else {
                 const friendsOutRequests = [...result.friendsOutRequests];
@@ -171,6 +172,7 @@ module.exports = {
         userModel.findById(req.body.id, function (err, result) {
             if (err) {
                 res.status(500).json({ error: err, message: 'Не найден пользователь' });
+                next(err);
             } else {
                 res.status(200).json({ friendsRequests: result.friendsInRequests });
             }
@@ -178,20 +180,14 @@ module.exports = {
     },
 
     acceptFriendRequest: function (req, res, next) {
-        userModel.findById(req.body.friendId, function (err, result) {
-            if (err) {
-                res.status(500).json({ error: err, message: 'Не удалось добавить пользователя' });
-            } else {
-                const foundUser = result;
-                userModel.findOneAndUpdate({ id: req.body.id }, { friends: friends.push(req.body.friendId) }, function (err, result) {
+                userModel.findOneAndUpdate({ id: req.body.id }, { $push: {friends: {id: req.body.friendId}} }, function (err, result) {
                     if (err) {
                         res.status(500).json({ error: err, message: 'Не удалось добавить пользователя' });
+                        next(err);
                     } else {
                         res.status(200).json({ friend: result, message: 'Пользователь добавлен в друзья' });
                     }
                 })
-            }
-        })
     }
 
 };

@@ -10,6 +10,7 @@ import {
     Button,
     Header
 } from 'react-native-elements';
+import LoadingScreen from "../commonComponents/LoadingScreen";
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import IconAnt from 'react-native-vector-icons/AntDesign';
 import IconAwesome from 'react-native-vector-icons/FontAwesome';
@@ -20,6 +21,7 @@ import settingsList from '../modules/auth/helpers/settingsList';
 import girlBox from '../images/girl-box.jpg';
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
+import {getTrueSettingsToArray} from "../utils";
 
 class HomeScreen extends React.Component {
 
@@ -29,31 +31,21 @@ class HomeScreen extends React.Component {
         friendsRequestsNumber: 0
     };
 
-    getTrueSettingsToArray = allSettings => {
-        let array = [];
-        for (let key in allSettings) {
-            if (allSettings[key] === true) {
-                array.push(key);
-            }
-        }
-        return array;
-    };
-
     //TODO оптимизировать, куча ненужных запросов!!!
     componentWillReceiveProps(nextProps) {
         {/*Если был не залогинен, потом залогинился*/ }
         if (!this.props.isLogged && nextProps.isLogged && nextProps.login) {
             this.props.getSettingsList(nextProps.login)
                 .then(() => {
-                    const availableSettings = this.getTrueSettingsToArray(this.props.settingsList);
+                    const availableSettings = getTrueSettingsToArray(this.props.settingsList);
                     this.setState({ availableSettings });
                 });
         }
-        else if (nextProps.settingsList && !_.isEqual(this.state.availableSettings, this.getTrueSettingsToArray(nextProps.settingsList))) {
+        else if (nextProps.settingsList && !_.isEqual(this.state.availableSettings, getTrueSettingsToArray(nextProps.settingsList))) {
             {/*Если апдейтнул настройки и надо обновить их на главной*/ }
             this.props.getSettingsList(this.props.login)
                 .then(() => {
-                    const availableSettings = this.getTrueSettingsToArray(this.props.settingsList);
+                    const availableSettings = getTrueSettingsToArray(this.props.settingsList);
                     this.setState({ availableSettings });
                 });
         }
@@ -61,7 +53,9 @@ class HomeScreen extends React.Component {
 
     componentDidMount() {
 
-        const willFocusListener = this.props.navigation.addListener('willFocus', () => console.log('willFocusListener'));
+        const willFocusListener = this.props.navigation.addListener('willFocus', () => {
+
+        });
 
         let availableSettings = [];
         for (let key in this.props.settingsList) {
@@ -143,7 +137,9 @@ class HomeScreen extends React.Component {
                     type='solid'
                     onPress={() => this.props.navigation.navigate('LoginScreen')}
                 />
-                <Text style={styles.textStyle}>Контент</Text>
+                <Text style={styles.textStyle}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                </Text>
                 <Button
                     title="Новости спорта"
                     buttonStyle={styles.buttonStyle}
@@ -204,11 +200,7 @@ class HomeScreen extends React.Component {
 
     render() {
         if (this.props.isLoading) {
-            return (
-                <View>
-                    <Text>Загрузка...</Text>
-                </View>
-            );
+            return <LoadingScreen/>
         }
         //гостевой режим
         else if (this.props.isGuestMode) return this.mainGuestScreen();

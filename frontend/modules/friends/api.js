@@ -25,7 +25,7 @@ export const getFriendsInRequestsApi = async id => {
         body: JSON.stringify({ id })
     };
     return await fetch(`${url}/getFriendsInRequests`, query);
-}
+};
 
 export const acceptFriendRequestApi = async (id, friendId) => {
     const query = {
@@ -34,4 +34,4 @@ export const acceptFriendRequestApi = async (id, friendId) => {
         body: JSON.stringify({ id, friendId })
     };
     return await fetch(`${url}/acceptFriendRequest`, query);
-}
+};

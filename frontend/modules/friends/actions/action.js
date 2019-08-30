@@ -48,7 +48,7 @@ export const getFriendsInRequestsAction = id => dispatch => {
         .catch(err => {
             dispatch({ type: GET_FRIENDS_REQUESTS_FAILURE, payload: err })
         })
-}
+};
 
 export const acceptFriendRequestAction = (id, friendId) => dispatch => {
     dispatch({ type: ACCEPT_FRIEND_REQUEST_START });
