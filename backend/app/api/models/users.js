@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-//Define a schema
-
 const UserSchema = mongoose.Schema({
     login: {
         type: String,
@@ -40,12 +38,9 @@ const UserSchema = mongoose.Schema({
     settingsList: {
         type: Object
     },
-    friends: {
-        type: [{
-            id: String
-        }],
-        required: true
-    },
+    friends: [
+        {id: String}
+    ],
     friendsOutRequests: {
         type: [String]
     },

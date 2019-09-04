@@ -1,12 +1,14 @@
 import React from 'react';
-import { ScrollView, View, Text } from 'react-native';
+import { ScrollView } from 'react-native';
 import { ListItem, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { getFriendsInRequestsAction, acceptFriendRequestAction } from '../modules/friends/actions/action';
+import LoadingScreen from "../commonComponents/LoadingScreen";
 
 class FriendsRequestsScreen extends React.Component {
 
   componentDidMount() {
+    //TODO не вешать для незалогиненного пользователя
     const willFocusListener = this.props.navigation.addListener('willFocus', () => {
       if (this.props.id) {
         this.props.getFriendsRequests(this.props.id);
@@ -20,11 +22,7 @@ class FriendsRequestsScreen extends React.Component {
 
   render() {
     if (this.props.isLoading) {
-      return (
-        <View>
-          <Text>Загрузка...</Text>
-        </View>
-      )
+      return <LoadingScreen/>
     }
     return (
       <ScrollView>
@@ -51,9 +49,10 @@ class FriendsRequestsScreen extends React.Component {
 
 const mapStateToProps = state => ({
   id: state.register.id,
+  isLogged: state.register.isLogged,
   isLoading: state.friends.isFetching,
   friendsRequests: state.friends.friendsInRequests
-})
+});
 
 const mapDispatchToProps = dispatch => ({
   getFriendsRequests: (id) => dispatch(getFriendsInRequestsAction(id)),
