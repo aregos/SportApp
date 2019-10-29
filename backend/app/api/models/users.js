@@ -39,13 +39,20 @@ const UserSchema = mongoose.Schema({
         type: Object
     },
     friends: [
-        {id: String}
+        {
+            id: {
+                type: String,
+                unique: true
+            },
+        },
     ],
     friendsOutRequests: {
-        type: [String]
+        type: [String],
+        unique: true
     },
     friendsInRequests: {
-        type: [String]
+        type: [String],
+        unique: true
     }
 });
 

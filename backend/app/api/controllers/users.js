@@ -180,14 +180,19 @@ module.exports = {
     },
 
     acceptFriendRequest: function (req, res, next) {
-                userModel.findByIdAndUpdate(req.body.id, { $push: {friends: {id: req.body.friendId} }, $pull: {friendsInRequests: {id: req.body.friendId}} }, {new: true}, function (err, result) {
+                userModel.findByIdAndUpdate(req.body.id, { $push: {friends: {id: req.body.friendId} }, $pull: {friendsInRequests: req.body.friendId} }, function (err, result) {
                     if (err) {
                         res.status(500).json({ error: err, message: 'Не удалось добавить пользователя' });
-                        next(err);
-                    } else {
-                        res.status(200).json({ friendsList: result.friends, message: 'Пользователь добавлен в друзья' });
                     }
                 })
+                    .then(() => userModel.findByIdAndUpdate(req.body.friendId, {$pull: {friendsOutRequests: req.body.id}}, function (err, result) {
+                        if (err) {
+                            res.status(500).json({ error: err, message: 'Не удалось добавить пользователя' });
+                        } else {
+                            res.status(200).json({ friendsList: result.friends, message: 'Пользователь добавлен в друзья' });
+                        }
+                    })
+                    )
     }
 
 };
