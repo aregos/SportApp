@@ -149,7 +149,7 @@ module.exports = {
                 if (friendsOutRequests.includes(req.body.friendId)) {
                     res.status(500).json({ message: 'Вы уже отправили заявку этому пользователю' })
                 } else {
-                    userModel.findOneAndUpdate({ _id: req.body.id }, { friendsOutRequests: req.body.friendId }, function (err, result) {
+                    userModel.findOneAndUpdate({ _id: req.body.id }, { friendsOutRequests: req.body.friendId }, (err, result) => {
                         if (err) {
                             res.status(500).json({ error: err, message: 'Произошла ошибка при попытке добавления в друзья' })
                         } else {
@@ -180,19 +180,21 @@ module.exports = {
     },
 
     acceptFriendRequest: function (req, res, next) {
-                userModel.findByIdAndUpdate(req.body.id, { $push: {friends: {id: req.body.friendId} }, $pull: {friendsInRequests: req.body.friendId} }, function (err, result) {
-                    if (err) {
-                        res.status(500).json({ error: err, message: 'Не удалось добавить пользователя' });
-                    }
-                })
-                    .then(() => userModel.findByIdAndUpdate(req.body.friendId, {$pull: {friendsOutRequests: req.body.id}}, function (err, result) {
-                        if (err) {
-                            res.status(500).json({ error: err, message: 'Не удалось добавить пользователя' });
-                        } else {
-                            res.status(200).json({ friendsList: result.friends, message: 'Пользователь добавлен в друзья' });
-                        }
-                    })
-                    )
+
+        userModel.findByIdAndUpdate(req.body.id, { $push: { friends: { id: req.body.friendId } }, $pull: { friendsInRequests: req.body.friendId } }, function (err, result) {
+            if (err) {
+                res.status(500).json({ error: err, message: 'Не удалось принять заявку' });
+            } else if (result.friends) {
+            }
+        })
+            .then(() => userModel.findByIdAndUpdate(req.body.friendId, { $pull: { friendsOutRequests: req.body.id } }, (err, result) => {
+                if (err) {
+                    res.status(500).json({ error: err, message: 'Не удалось добавить пользователя' });
+                } else {
+                    res.status(200).json({ friendsList: result.friends, message: 'Пользователь добавлен в друзья' });
+                }
+            })
+            )
     }
 
 };

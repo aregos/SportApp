@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="49637a5e-2e7d-464c-a59d-710bcab3296b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../backend/app/api/controllers/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app/api/controllers/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/app/api/models/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app/api/models/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -68,7 +65,7 @@
     <option name="totallyTimeSpent" value="62000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="1" weight="0.21917808" />
